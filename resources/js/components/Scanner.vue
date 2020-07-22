@@ -1,27 +1,36 @@
 <template>
-    <div class="flex flex-col content-center" :class="containerClass">
-        <div class="flex w-100">
-            <button v-if="!this.camerasInitiated && !this.cameras" class="bg-gray-800 text-white rounded px-2 py-3 w-full" v-on:click="initCameras">
-                Kamera(s) initialisieren
-            </button>
-            <button v-if="this.camerasInitiated && !this.scannerActive" class="bg-gray-800 text-white rounded px-2 py-3 w-full" v-on:click="startScanning">
-                Scanner starten
-            </button>
+    <div>
+        <div class="bg-gray-800 text-white px-2 py-1 text-center mb-2 rounded">
+            Eingecheckt: {{ this.amountCheckedIn }} | Offen: {{ this.amountNotCheckedIn }}
         </div>
-        <div class="my-5" v-if="!this.camerasInitiated && this.cameras">
-            <button v-for="camera in this.cameras" class="bg-gray-800 text-white rounded px-2 py-3 w-full my-2" v-on:click="setActiveCamera(camera);">
-                {{ camera.label }}
-            </button>
+        <div class="flex flex-col content-center" :class="containerClass">
+            <div class="flex w-100">
+                <button v-if="!this.camerasInitiated && !this.cameras" class="bg-gray-800 text-white rounded px-2 py-3 w-full" v-on:click="initCameras">
+                    Kamera(s) initialisieren
+                </button>
+                <button v-if="this.camerasInitiated && !this.scannerActive" class="bg-gray-800 text-white rounded px-2 py-3 w-full" v-on:click="startScanning">
+                    Scanner starten
+                </button>
+            </div>
+            <div class="my-5" v-if="!this.camerasInitiated && this.cameras">
+                <button v-for="camera in this.cameras" class="bg-gray-800 text-white rounded px-2 py-3 w-full my-2" v-on:click="setActiveCamera(camera);">
+                    {{ camera.label }}
+                </button>
+            </div>
+            <div v-if="this.activeCamera && this.camerasInitiated" id="reader" class="bg-gray-200 w-100 mx-auto my-3" style="width: 250px;"/>
+            <div v-if="this.code" class="mb-3 text-center font-bold text-lg">{{ this.code }}</div>
+            <div v-if="this.message" class="text-center font-bold text-sm mb-3 px-3">{{ this.message }}</div>
         </div>
-        <div v-if="this.activeCamera && this.camerasInitiated" id="reader" class="bg-gray-200 w-100 mx-auto my-3" style="width: 250px;"/>
-        <div v-if="this.code" class="mb-3 text-center font-bold text-lg">{{ this.code }}</div>
-        <div v-if="this.message" class="text-center font-bold text-sm mb-3">{{ this.message }}</div>
     </div>
 </template>
 
 <script>
     export default {
         name: "Scanner",
+        props: [
+            'initCountCheckedIn',
+            'initCountNotCheckedIn'
+        ],
         data() {
             return {
                 reader: new Html5Qrcode("reader", false),
@@ -37,7 +46,9 @@
                 inToggleSuccess: false,
                 inToggleFailure: false,
                 mode: 1, // 1 = Entry; 2 = Exit,
-                message: null
+                message: null,
+                amountCheckedIn: this.initCountCheckedIn,
+                amountNotCheckedIn: this.initCountNotCheckedIn
             }
         },
         mounted() {
@@ -120,6 +131,9 @@
                     obj.lastCode = null;
                     obj.codeMatchCount = 0;
                     obj.inToggle = true;
+
+                    obj.amountCheckedIn = res.data.countCheckedIn;
+                    obj.amountNotCheckedIn = res.data.countNotCheckedIn;
 
                     setTimeout(() => {
                         obj.inProgress = false;

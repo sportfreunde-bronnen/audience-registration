@@ -29,8 +29,14 @@ class ScanController extends Controller
      */
     public function index(Request $request, Event $event)
     {
+        // Calculate numbers
+        $countCheckedIn = Participant::where('event_id', $event->id)->whereNotNull('date_check_in')->count();
+        $countNotCheckedIn = Participant::where('event_id', $event->id)->whereNull('date_check_in')->count();
+
         return view('admin.scan.entry', [
-            'event' => $event
+            'event' => $event,
+            'countCheckedIn' => $countCheckedIn,
+            'countNotCheckedIn' => $countNotCheckedIn
         ]);
     }
 
@@ -42,6 +48,10 @@ class ScanController extends Controller
         // Get the mode (1 = Entry, 2 = Exit)
         $mode = (int)$request->post('mode', 1);
 
+        // Calculate numbers
+        $countCheckedIn = Participant::where('event_id', $event->id)->whereNotNull('date_check_in')->count();
+        $countNotCheckedIn = Participant::where('event_id', $event->id)->whereNull('date_check_in')->count();
+
         try {
 
             switch ($mode) {
@@ -50,6 +60,9 @@ class ScanController extends Controller
                         throw new ParticipantHasAlreadyCheckedInException('Dieser Besucher wurde bereits eingecheckt.');
                     }
                     $participant->date_check_in = Carbon::now();
+                    $participant->save();
+                    $countCheckedIn++;
+                    $countNotCheckedIn--;
                     break;
                 case 2:
                     if (!$participant->date_check_in instanceof Carbon) {
@@ -59,29 +72,38 @@ class ScanController extends Controller
                         throw new ParticipantHasAlreadyCheckedOutException('Dieser Besucher wurde bereits ausgecheckt.');
                     }
                     $participant->date_check_out = Carbon::now();
+                    $participant->save();
                     break;
             }
 
-            $participant->save();
-
             return new JsonResponse([
                 'status'    => 0,
-                'message' => sprintf('%s %s %s.', $participant->name,
+                'message' => sprintf(
+                    '%s %s %s (%s Person/en).',
+                    $participant->name,
                     $participant->last_name,
-                    ($mode === 1 ? 'eingecheckt' : 'ausgecheckt'))
+                    ($mode === 1 ? 'eingecheckt' : 'ausgecheckt'),
+                    $participant->amount
+                ),
+                'countCheckedIn' => $countCheckedIn,
+                'countNotCheckedIn' => $countNotCheckedIn
             ], 200);
 
         } catch(ParticipantHasAlreadyCheckedInException | ParticipantHasAlreadyCheckedOutException | ParticipantHasNoCheckinException $e) {
 
             return new JsonResponse([
                 'status' => 1,
-                'message' => $e->getMessage()
+                'message' => $e->getMessage(),
+                'countCheckedIn' => $countCheckedIn,
+                'countNotCheckedIn' => $countNotCheckedIn
             ], 200);
 
         } catch (\Throwable $e) {
             return new JsonResponse([
                 'status' => 1,
                 'message' => $e->getMessage(),
+                'countCheckedIn' => $countCheckedIn,
+                'countNotCheckedIn' => $countNotCheckedIn
             ], 200);
         }
 

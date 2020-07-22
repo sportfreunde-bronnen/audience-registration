@@ -1962,8 +1962,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Scanner",
+  props: ['initCountCheckedIn', 'initCountNotCheckedIn'],
   data: function data() {
     return {
       reader: new Html5Qrcode("reader", false),
@@ -1980,7 +1986,9 @@ __webpack_require__.r(__webpack_exports__);
       inToggleFailure: false,
       mode: 1,
       // 1 = Entry; 2 = Exit,
-      message: null
+      message: null,
+      amountCheckedIn: this.initCountCheckedIn,
+      amountNotCheckedIn: this.initCountNotCheckedIn
     };
   },
   mounted: function mounted() {},
@@ -2056,6 +2064,8 @@ __webpack_require__.r(__webpack_exports__);
         obj.lastCode = null;
         obj.codeMatchCount = 0;
         obj.inToggle = true;
+        obj.amountCheckedIn = res.data.countCheckedIn;
+        obj.amountNotCheckedIn = res.data.countNotCheckedIn;
         setTimeout(function () {
           obj.inProgress = false;
         }, 1000);
@@ -37718,78 +37728,113 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "flex flex-col content-center", class: _vm.containerClass },
-    [
-      _c("div", { staticClass: "flex w-100" }, [
-        !this.camerasInitiated && !this.cameras
-          ? _c(
-              "button",
-              {
-                staticClass: "bg-gray-800 text-white rounded px-2 py-3 w-full",
-                on: { click: _vm.initCameras }
-              },
-              [_vm._v("\n            Kamera(s) initialisieren\n        ")]
-            )
-          : _vm._e(),
-        _vm._v(" "),
-        this.camerasInitiated && !this.scannerActive
-          ? _c(
-              "button",
-              {
-                staticClass: "bg-gray-800 text-white rounded px-2 py-3 w-full",
-                on: { click: _vm.startScanning }
-              },
-              [_vm._v("\n            Scanner starten\n        ")]
-            )
-          : _vm._e()
-      ]),
-      _vm._v(" "),
-      !this.camerasInitiated && this.cameras
-        ? _c(
-            "div",
-            { staticClass: "my-5" },
-            _vm._l(this.cameras, function(camera) {
-              return _c(
+  return _c("div", [
+    _c(
+      "div",
+      {
+        staticClass: "bg-gray-800 text-white px-2 py-1 text-center mb-2 rounded"
+      },
+      [
+        _vm._v(
+          "\n        Eingecheckt: " +
+            _vm._s(this.amountCheckedIn) +
+            " | Offen: " +
+            _vm._s(this.amountNotCheckedIn) +
+            "\n    "
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "flex flex-col content-center",
+        class: _vm.containerClass
+      },
+      [
+        _c("div", { staticClass: "flex w-100" }, [
+          !this.camerasInitiated && !this.cameras
+            ? _c(
                 "button",
                 {
                   staticClass:
-                    "bg-gray-800 text-white rounded px-2 py-3 w-full my-2",
-                  on: {
-                    click: function($event) {
-                      return _vm.setActiveCamera(camera)
-                    }
-                  }
+                    "bg-gray-800 text-white rounded px-2 py-3 w-full",
+                  on: { click: _vm.initCameras }
                 },
-                [_vm._v("\n            " + _vm._s(camera.label) + "\n        ")]
+                [
+                  _vm._v(
+                    "\n                Kamera(s) initialisieren\n            "
+                  )
+                ]
               )
-            }),
-            0
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      this.activeCamera && this.camerasInitiated
-        ? _c("div", {
-            staticClass: "bg-gray-200 w-100 mx-auto my-3",
-            staticStyle: { width: "250px" },
-            attrs: { id: "reader" }
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      this.code
-        ? _c("div", { staticClass: "mb-3 text-center font-bold text-lg" }, [
-            _vm._v(_vm._s(this.code))
-          ])
-        : _vm._e(),
-      _vm._v(" "),
-      this.message
-        ? _c("div", { staticClass: "text-center font-bold text-sm mb-3" }, [
-            _vm._v(_vm._s(this.message))
-          ])
-        : _vm._e()
-    ]
-  )
+            : _vm._e(),
+          _vm._v(" "),
+          this.camerasInitiated && !this.scannerActive
+            ? _c(
+                "button",
+                {
+                  staticClass:
+                    "bg-gray-800 text-white rounded px-2 py-3 w-full",
+                  on: { click: _vm.startScanning }
+                },
+                [_vm._v("\n                Scanner starten\n            ")]
+              )
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        !this.camerasInitiated && this.cameras
+          ? _c(
+              "div",
+              { staticClass: "my-5" },
+              _vm._l(this.cameras, function(camera) {
+                return _c(
+                  "button",
+                  {
+                    staticClass:
+                      "bg-gray-800 text-white rounded px-2 py-3 w-full my-2",
+                    on: {
+                      click: function($event) {
+                        return _vm.setActiveCamera(camera)
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(camera.label) +
+                        "\n            "
+                    )
+                  ]
+                )
+              }),
+              0
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        this.activeCamera && this.camerasInitiated
+          ? _c("div", {
+              staticClass: "bg-gray-200 w-100 mx-auto my-3",
+              staticStyle: { width: "250px" },
+              attrs: { id: "reader" }
+            })
+          : _vm._e(),
+        _vm._v(" "),
+        this.code
+          ? _c("div", { staticClass: "mb-3 text-center font-bold text-lg" }, [
+              _vm._v(_vm._s(this.code))
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        this.message
+          ? _c(
+              "div",
+              { staticClass: "text-center font-bold text-sm mb-3 px-3" },
+              [_vm._v(_vm._s(this.message))]
+            )
+          : _vm._e()
+      ]
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
