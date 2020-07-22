@@ -1956,6 +1956,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Scanner",
   data: function data() {
@@ -1983,15 +1988,21 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    setActiveCamera: function setActiveCamera(camera) {
+      this.activeCamera = camera;
+      this.camerasInitiated = true;
+      this.cameras = null;
+    },
     initCameras: function initCameras() {
       var obj = this;
       Html5Qrcode.getCameras().then(function (devices) {
         if (devices && devices.length) {
+          //devices.push(devices[0]);
           obj.cameras = devices;
-          obj.camerasInitiated = true;
 
           if (devices.length === 1) {
             obj.activeCamera = devices[0];
+            obj.camerasInitiated = true;
           }
         }
       })["catch"](function (err) {// handle err
@@ -2020,6 +2031,7 @@ __webpack_require__.r(__webpack_exports__);
             }
           } else {
             obj.lastCode = code;
+            obj.codeMatchCount = 0;
           }
         }
       })["catch"](function (err) {
@@ -37692,7 +37704,7 @@ var render = function() {
     { staticClass: "flex flex-col content-center", class: _vm.containerClass },
     [
       _c("div", { staticClass: "flex w-100" }, [
-        !this.camerasInitiated
+        !this.camerasInitiated && !this.cameras
           ? _c(
               "button",
               {
@@ -37715,11 +37727,36 @@ var render = function() {
           : _vm._e()
       ]),
       _vm._v(" "),
-      _c("div", {
-        staticClass: "bg-gray-200 w-100 mx-auto my-3",
-        staticStyle: { width: "300px" },
-        attrs: { id: "reader" }
-      }),
+      !this.camerasInitiated && this.cameras
+        ? _c(
+            "div",
+            { staticClass: "my-5" },
+            _vm._l(this.cameras, function(camera) {
+              return _c(
+                "button",
+                {
+                  staticClass:
+                    "bg-gray-800 text-white rounded px-2 py-3 w-full my-2",
+                  on: {
+                    click: function($event) {
+                      return _vm.setActiveCamera(camera)
+                    }
+                  }
+                },
+                [_vm._v("\n            " + _vm._s(camera.label) + "\n        ")]
+              )
+            }),
+            0
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      this.activeCamera && this.camerasInitiated
+        ? _c("div", {
+            staticClass: "bg-gray-200 w-100 mx-auto my-3",
+            staticStyle: { width: "300px" },
+            attrs: { id: "reader" }
+          })
+        : _vm._e(),
       _vm._v(" "),
       this.code
         ? _c("div", { staticClass: "mb-3 text-center font-bold text-lg" }, [

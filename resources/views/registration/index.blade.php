@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'Anmeldung')
 
 @section('content')
     <div class="mx-1 md:mx-20 xl:mx-40 rounded bg-gray-100 text-sm shadow-xs px-5 py-3 text-gray-800">

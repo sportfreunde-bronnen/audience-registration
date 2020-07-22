@@ -1,14 +1,19 @@
 <template>
     <div class="flex flex-col content-center" :class="containerClass">
         <div class="flex w-100">
-            <button v-if="!this.camerasInitiated" class="bg-gray-800 text-white rounded px-2 py-3 w-full" v-on:click="initCameras">
+            <button v-if="!this.camerasInitiated && !this.cameras" class="bg-gray-800 text-white rounded px-2 py-3 w-full" v-on:click="initCameras">
                 Kamera(s) initialisieren
             </button>
             <button v-if="this.camerasInitiated && !this.scannerActive" class="bg-gray-800 text-white rounded px-2 py-3 w-full" v-on:click="startScanning">
                 Scanner starten
             </button>
         </div>
-        <div id="reader" class="bg-gray-200 w-100 mx-auto my-3" style="width: 300px;"/>
+        <div class="my-5" v-if="!this.camerasInitiated && this.cameras">
+            <button v-for="camera in this.cameras" class="bg-gray-800 text-white rounded px-2 py-3 w-full my-2" v-on:click="setActiveCamera(camera);">
+                {{ camera.label }}
+            </button>
+        </div>
+        <div v-if="this.activeCamera && this.camerasInitiated" id="reader" class="bg-gray-200 w-100 mx-auto my-3" style="width: 300px;"/>
         <div v-if="this.code" class="mb-3 text-center font-bold text-lg">{{ this.code }}</div>
     </div>
 </template>
@@ -42,14 +47,20 @@
             }
         },
         methods: {
+            setActiveCamera(camera) {
+                this.activeCamera = camera;
+                this.camerasInitiated = true;
+                this.cameras = null;
+            },
             initCameras() {
                 var obj = this;
                 Html5Qrcode.getCameras().then(devices => {
                     if (devices && devices.length) {
+                        //devices.push(devices[0]);
                         obj.cameras = devices;
-                        obj.camerasInitiated = true;
                         if (devices.length === 1) {
                             obj.activeCamera = devices[0];
+                            obj.camerasInitiated = true;
                         }
                     }
                 }).catch(err => {
@@ -79,6 +90,7 @@
                                 }
                             } else {
                                 obj.lastCode = code;
+                                obj.codeMatchCount = 0;
                             }
                         }
                     }
