@@ -101,10 +101,7 @@
                         }
                     }
                     )
-                    .catch(err => {
-                        // Start failed, handle it. For example,
-                        console.log(`Unable to start scanning, error: ${err}`);
-                    });
+                    .catch(err => {});
             },
             handleCode(code) {
 
@@ -122,8 +119,11 @@
 
                     obj.lastCode = null;
                     obj.codeMatchCount = 0;
-                    obj.inProgress = false;
                     obj.inToggle = true;
+
+                    setTimeout(() => {
+                        obj.inProgress = false;
+                    }, 1000);
 
                     if (res.data.status === 0) {
                         obj.inToggleSuccess = true;

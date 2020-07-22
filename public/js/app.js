@@ -2041,10 +2041,7 @@ __webpack_require__.r(__webpack_exports__);
             obj.codeMatchCount = 0;
           }
         }
-      })["catch"](function (err) {
-        // Start failed, handle it. For example,
-        console.log("Unable to start scanning, error: ".concat(err));
-      });
+      })["catch"](function (err) {});
     },
     handleCode: function handleCode(code) {
       this.resetToggle();
@@ -2058,8 +2055,10 @@ __webpack_require__.r(__webpack_exports__);
         obj.message = res.data.message;
         obj.lastCode = null;
         obj.codeMatchCount = 0;
-        obj.inProgress = false;
         obj.inToggle = true;
+        setTimeout(function () {
+          obj.inProgress = false;
+        }, 1000);
 
         if (res.data.status === 0) {
           obj.inToggleSuccess = true;
