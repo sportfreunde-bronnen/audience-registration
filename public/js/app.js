@@ -1961,11 +1961,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Scanner",
   data: function data() {
     return {
-      reader: new Html5Qrcode("reader"),
+      reader: new Html5Qrcode("reader", false),
       camerasInitiated: false,
       scannerActive: false,
       inProgress: false,
@@ -1974,14 +1975,20 @@ __webpack_require__.r(__webpack_exports__);
       lastCode: null,
       codeMatchCount: 0,
       code: null,
-      inToggle: false
+      inToggle: false,
+      inToggleSuccess: false,
+      inToggleFailure: false,
+      mode: 1,
+      // 1 = Entry; 2 = Exit,
+      message: null
     };
   },
   mounted: function mounted() {},
   computed: {
     containerClass: function containerClass() {
       return {
-        'bg-green-600': this.inToggle,
+        'bg-green-600': this.inToggle && this.inToggleSuccess,
+        'bg-red-600': this.inToggle && this.inToggleFailure,
         'text-white': this.inToggle,
         'bg-gray-200': !this.inToggle
       };
@@ -2040,21 +2047,34 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     handleCode: function handleCode(code) {
+      this.resetToggle();
       var obj = this;
       obj.code = code;
-      console.log("Handle code", code);
-      setTimeout(function () {
+      var uri = '/' + window.location.pathname.substr(1);
+      axios.post(uri, {
+        secret: code,
+        mode: this.mode
+      }).then(function (res) {
+        obj.message = res.data.message;
         obj.lastCode = null;
         obj.codeMatchCount = 0;
         obj.inProgress = false;
         obj.inToggle = true;
-        setTimeout(function () {
-          obj.inToggle = false;
-          obj.code = null;
-        }, 150);
-      }, 1000);
+
+        if (res.data.status === 0) {
+          obj.inToggleSuccess = true;
+        } else {
+          obj.inToggleFailure = true;
+        }
+      })["catch"](function (err) {});
     },
-    toggleSuccess: function toggleSuccess() {}
+    resetToggle: function resetToggle() {
+      this.message = null;
+      this.inToggle = false;
+      this.inToggleFailure = false;
+      this.inToggleSuccess = false;
+      this.code = null;
+    }
   }
 });
 
@@ -37761,6 +37781,12 @@ var render = function() {
       this.code
         ? _c("div", { staticClass: "mb-3 text-center font-bold text-lg" }, [
             _vm._v(_vm._s(this.code))
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      this.message
+        ? _c("div", { staticClass: "text-center font-bold text-sm mb-3" }, [
+            _vm._v(_vm._s(this.message))
           ])
         : _vm._e()
     ]

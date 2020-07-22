@@ -22,6 +22,8 @@ class CreateParticipantsTable extends Migration
             $table->string('email')->nullable(true);
             $table->string('phone')->nullable(true);
             $table->integer('amount')->nullable(false)->default(1);
+            $table->dateTime('date_check_in')->nullable(true);
+            $table->dateTime('date_check_out')->nullable(true);
             $table->timestamps();
         });
     }

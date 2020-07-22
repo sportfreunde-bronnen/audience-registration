@@ -15,6 +15,7 @@
         </div>
         <div v-if="this.activeCamera && this.camerasInitiated" id="reader" class="bg-gray-200 w-100 mx-auto my-3" style="width: 250px;"/>
         <div v-if="this.code" class="mb-3 text-center font-bold text-lg">{{ this.code }}</div>
+        <div v-if="this.message" class="text-center font-bold text-sm mb-3">{{ this.message }}</div>
     </div>
 </template>
 
@@ -23,7 +24,7 @@
         name: "Scanner",
         data() {
             return {
-                reader: new Html5Qrcode("reader"),
+                reader: new Html5Qrcode("reader", false),
                 camerasInitiated: false,
                 scannerActive: false,
                 inProgress: false,
@@ -32,7 +33,11 @@
                 lastCode: null,
                 codeMatchCount: 0,
                 code: null,
-                inToggle: false
+                inToggle: false,
+                inToggleSuccess: false,
+                inToggleFailure: false,
+                mode: 1, // 1 = Entry; 2 = Exit,
+                message: null
             }
         },
         mounted() {
@@ -40,7 +45,8 @@
         computed: {
             containerClass: function() {
                 return {
-                    'bg-green-600': this.inToggle,
+                    'bg-green-600': this.inToggle && this.inToggleSuccess,
+                    'bg-red-600': this.inToggle && this.inToggleFailure,
                     'text-white': this.inToggle,
                     'bg-gray-200': !this.inToggle
                 }
@@ -101,22 +107,38 @@
                     });
             },
             handleCode(code) {
+
+                this.resetToggle();
+
                 const obj = this;
                 obj.code = code;
-                console.log("Handle code", code);
-                setTimeout(() => {
+
+                const uri = '/' + window.location.pathname.substr(1);
+
+                axios.post(uri, { secret: code, mode: this.mode })
+                .then((res) => {
+
+                    obj.message = res.data.message;
+
                     obj.lastCode = null;
                     obj.codeMatchCount = 0;
                     obj.inProgress = false;
                     obj.inToggle = true;
-                    setTimeout(() => {
-                        obj.inToggle = false;
-                        obj.code = null;
-                    }, 150);
-                }, 1000);
-            },
-            toggleSuccess() {
 
+                    if (res.data.status === 0) {
+                        obj.inToggleSuccess = true;
+                    } else {
+                        obj.inToggleFailure = true;
+                    }
+                })
+                .catch((err) => {})
+            },
+            resetToggle() {
+                this.message = null;
+                this.inToggle = false;
+                this.inToggleFailure = false;
+                this.inToggleSuccess = false;
+                this.code = null;
             }
         }
     }

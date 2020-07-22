@@ -12,7 +12,9 @@ class Participant extends Model
 
     protected $casts = [
         'updated_at' => 'datetime',
-        'created_at' => 'datetime'
+        'created_at' => 'datetime',
+        'date_check_in' => 'datetime',
+        'date_check_out' => 'datetime'
     ];
 
     public function event()

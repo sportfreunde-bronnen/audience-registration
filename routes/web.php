@@ -18,7 +18,8 @@ Route::post('/', 'RegistrationController@store')->name('registration.store');
 
 Route::get('/v/{secret}', 'VisitController@index')->name('visit.index');
 
-Route::get('/admin/scan/entry/{event}', 'ScanController@entry')->name('scan.entry');
+Route::get('/admin/scan/{event}', 'ScanController@index')->name('scan.index');
+Route::post('/admin/scan/{event}', 'ScanController@code')->name('scan.scan');
 
 Auth::routes();
 
