@@ -13,7 +13,7 @@
                 {{ camera.label }}
             </button>
         </div>
-        <div v-if="this.activeCamera && this.camerasInitiated" id="reader" class="bg-gray-200 w-100 mx-auto my-3" style="width: 300px;"/>
+        <div v-if="this.activeCamera && this.camerasInitiated" id="reader" class="bg-gray-200 w-100 mx-auto my-3" style="width: 250px;"/>
         <div v-if="this.code" class="mb-3 text-center font-bold text-lg">{{ this.code }}</div>
     </div>
 </template>

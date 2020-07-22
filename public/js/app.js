@@ -37753,7 +37753,7 @@ var render = function() {
       this.activeCamera && this.camerasInitiated
         ? _c("div", {
             staticClass: "bg-gray-200 w-100 mx-auto my-3",
-            staticStyle: { width: "300px" },
+            staticStyle: { width: "250px" },
             attrs: { id: "reader" }
           })
         : _vm._e(),
