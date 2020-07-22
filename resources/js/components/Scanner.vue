@@ -74,7 +74,7 @@
                     obj.activeCamera.id,
                     {
                         fps: 10,
-                        qrbox: 300
+                        qrbox: 250
                     },
                     qrCodeMessage => {
                         if (obj.inProgress) {

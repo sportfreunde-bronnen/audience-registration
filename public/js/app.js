@@ -2013,7 +2013,7 @@ __webpack_require__.r(__webpack_exports__);
       this.scannerActive = true;
       obj.reader.start(obj.activeCamera.id, {
         fps: 10,
-        qrbox: 300
+        qrbox: 250
       }, function (qrCodeMessage) {
         if (obj.inProgress) {
           return;
