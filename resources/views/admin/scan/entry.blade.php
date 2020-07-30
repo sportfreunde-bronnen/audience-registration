@@ -5,7 +5,7 @@
         <div class="my-3 text-center">
             <h2 class="font-bold">{{ $event->name }}</h2>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 content-center">
+        <div class="grid grid-cols-1 gap-4 content-center">
             <scanner init-count-checked-in="{{ $countCheckedIn }}" init-count-not-checked-in="{{ $countNotCheckedIn }}"/>
         </div>
     </div>

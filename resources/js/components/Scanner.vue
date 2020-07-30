@@ -17,7 +17,7 @@
                     {{ camera.label }}
                 </button>
             </div>
-            <div v-if="this.activeCamera && this.camerasInitiated" id="reader" class="bg-gray-200 w-100 mx-auto my-3" style="width: 250px;"/>
+            <div id="reader" class="bg-gray-200 w-100 mx-auto my-3" style="width: 250px;"/>
             <div v-if="this.code" class="mb-3 text-center font-bold text-lg">{{ this.code }}</div>
             <div v-if="this.message" class="text-center font-bold text-sm mb-3 px-3">{{ this.message }}</div>
         </div>
@@ -78,6 +78,7 @@
                         if (devices.length === 1) {
                             obj.activeCamera = devices[0];
                             obj.camerasInitiated = true;
+                            obj.startScanning();
                         }
                     }
                 }).catch(err => {
@@ -85,6 +86,7 @@
                 });
             },
             startScanning() {
+                this.$forceUpdate();
                 const obj = this;
                 this.scannerActive = true;
                 obj.reader.start(
@@ -112,7 +114,9 @@
                         }
                     }
                     )
-                    .catch(err => {});
+                    .catch(err => {
+                        console.log(err);
+                    });
             },
             handleCode(code) {
 
@@ -145,7 +149,12 @@
                         obj.inToggleFailure = true;
                     }
                 })
-                .catch((err) => {})
+                .catch((err) => {
+                    obj.message = 'Dieser Code ist unbekannt!';
+                    obj.inProgress = false;
+                    obj.inToggleFailure = true;
+                    obj.inToggle = true;
+                })
             },
             resetToggle() {
                 this.message = null;
