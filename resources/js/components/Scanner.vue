@@ -8,9 +8,6 @@
                 <button v-if="!this.camerasInitiated && !this.cameras" class="bg-gray-800 text-white rounded px-2 py-3 w-full" v-on:click="initCameras">
                     Kamera(s) initialisieren
                 </button>
-                <button v-if="this.camerasInitiated && !this.scannerActive" class="bg-gray-800 text-white rounded px-2 py-3 w-full" v-on:click="startScanning">
-                    Scanner starten
-                </button>
             </div>
             <div class="my-5" v-if="!this.camerasInitiated && this.cameras">
                 <button v-for="camera in this.cameras" class="bg-gray-800 text-white rounded px-2 py-3 w-full my-2" v-on:click="setActiveCamera(camera);">
@@ -68,6 +65,7 @@
                 this.activeCamera = camera;
                 this.camerasInitiated = true;
                 this.cameras = null;
+                this.startScanning();
             },
             initCameras() {
                 var obj = this;
