@@ -32,7 +32,7 @@ class ParticipantRegistered extends Mailable
     {
         return $this
             ->subject('Dein Besuch bei den Sportfreunden Bronnen')
-            ->attach(__DIR__ . '/../../public/img/qr/' . $this->participant->secret . '.png')
+            ->attach(__DIR__ . '/../../public/img/qr/' . $this->participant->secret . '.jpg')
             ->view('mail.participant');
     }
 }

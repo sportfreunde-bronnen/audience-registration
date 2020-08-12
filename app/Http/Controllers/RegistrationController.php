@@ -50,7 +50,7 @@ class RegistrationController extends Controller
 
         $qrOptions = new QROptions([
             'version' => 2,
-            'outputType' => QRCode::OUTPUT_IMAGE_PNG,
+            'outputType' => QRCode::OUTPUT_IMAGE_JPG,
             'eccLevel' => QRCode::ECC_L
         ]);
 
@@ -62,7 +62,7 @@ class RegistrationController extends Controller
             $participant->save();
 
             $qrCode = new QRCode($qrOptions);
-            $qrCode->render($participant->secret, __DIR__ . '/../../../public/img/qr/' . $participant->secret . '.png');
+            $qrCode->render($participant->secret, __DIR__ . '/../../../public/img/qr/' . $participant->secret . '.jpg');
 
             event(new ParticipantRegistered($participant));
 
