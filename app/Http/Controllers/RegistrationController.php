@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Event;
+use App\Events\ParticipantRegistered;
 use App\Participant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -61,11 +62,15 @@ class RegistrationController extends Controller
             $participant->save();
 
             $qrCode = new QRCode($qrOptions);
-            $qrCode->render($participant->secret, './' . $participant->secret . '.png');
+            $qrCode->render($participant->secret, __DIR__ . '/../../../public/img/qr/' . $participant->secret . '.png');
+
+            event(new ParticipantRegistered($participant));
 
             return redirect()->route('visit.index', ['secret' => $participant->secret]);
 
-        } catch(\Throwable $e) {}
+        } catch(\Throwable $e) {
+
+        }
 
         return view('registration.index', [
             'events' => $events
