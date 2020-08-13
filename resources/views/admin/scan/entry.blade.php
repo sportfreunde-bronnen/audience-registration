@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Scan ' . $participant->event->name)
+@section('title', 'Scan ' . $event->name)
 
 @section('content')
     <div class="mx-1 md:mx-20 xl:mx-64 rounded bg-gray-100 text-sm shadow-xs px-5 py-1 text-gray-800">
