@@ -21,7 +21,6 @@
 </head>
 <body>
     <div id="app">
-
         <div>
             <nav class="bg-gray-800">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -113,6 +112,11 @@
             </main>
         </div>
     </div>
+    <footer>
+        <div class="w-full text-center text-xs text-gray-500 mb-8">
+            <a href="https://sf-bronnen.de/home/impressum">Impressum</a> | <a href="https://sf-bronnen.de/home/datenschutz">Datenschutz</a>
+        </div>
+    </footer>
     <script src="/js/html5-qrcode.min.js"></script>
 </body>
 </html>
