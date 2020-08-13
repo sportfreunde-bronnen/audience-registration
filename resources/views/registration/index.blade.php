@@ -17,7 +17,7 @@
         @if ($events->count() > 0)
             <div class="bg-blue-100 border border-blue-500 text-blue-800 px-3 py-2 mb-6 text-xs" role="alert">
                 Wir behalten uns vor, eure Daten beim Einlass auf Richtigkeit zu überprüfen. Seid daher bitte so vernünftig und macht richtige Angaben.
-                Eure Daten dienen ausschließlich der Nachverfolgung möglicher Infektionsketten und werden in vier Wochen automatisch gelöscht.
+                Eure Daten dienen ausschließlich der Nachverfolgung möglicher Infektionsketten und werden nach vier Wochen automatisch gelöscht.
             </div>
             <form class="w-full" method="POST" action="{{ route('registration.store') }}">
                 @csrf
