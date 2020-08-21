@@ -37,7 +37,8 @@ class RegistrationController extends Controller
 
     public function store(Request $request)
     {
-        $events = Event::all()->where('date_start', '>=', Carbon::now()->format('Y-m-d H:i:s'));
+        $events = Event::all()
+            ->where('date_start', '>=', Carbon::now()->subMinutes(100)->format('Y-m-d H:i:s'));
 
         $validatedData = $request->validate([
             'name' => 'required',
@@ -69,7 +70,7 @@ class RegistrationController extends Controller
             return redirect()->route('visit.index', ['secret' => $participant->secret]);
 
         } catch(\Throwable $e) {
-
+            
         }
 
         return view('registration.index', [
