@@ -25,6 +25,8 @@ class SendEmailToRegisteredParticipant
      */
     public function handle(ParticipantRegistered $event)
     {
-        Mail::to($event->participant)->send(new \App\Mail\ParticipantRegistered($event->participant));
+        if ($event->participant->email) {
+            Mail::to($event->participant)->send(new \App\Mail\ParticipantRegistered($event->participant));
+        }
     }
 }
