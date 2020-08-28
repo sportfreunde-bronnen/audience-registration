@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "html5-qrcode": "^1.1.8",
+        "nosleep.js": "^0.11.0",
         "tailwindcss": "^1.5.1"
     }
 }

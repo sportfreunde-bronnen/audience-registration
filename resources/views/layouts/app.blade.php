@@ -118,5 +118,6 @@
         </div>
     </footer>
     <script src="/js/html5-qrcode.min.js"></script>
+    <script src="/js/no-sleep.min.js"></script>
 </body>
 </html>
