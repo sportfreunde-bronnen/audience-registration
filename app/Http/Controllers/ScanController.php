@@ -30,8 +30,8 @@ class ScanController extends Controller
     public function index(Request $request, Event $event)
     {
         // Calculate numbers
-        $countCheckedIn = Participant::where('event_id', $event->id)->whereNotNull('date_check_in')->count();
-        $countNotCheckedIn = Participant::where('event_id', $event->id)->whereNull('date_check_in')->count();
+        $countCheckedIn = Participant::where('event_id', $event->id)->whereNotNull('date_check_in')->sum('amount');
+        $countNotCheckedIn = Participant::where('event_id', $event->id)->whereNull('date_check_in')->sum('amount');
 
         return view('admin.scan.entry', [
             'event' => $event,
@@ -49,8 +49,8 @@ class ScanController extends Controller
         $mode = (int)$request->post('mode', 1);
 
         // Calculate numbers
-        $countCheckedIn = Participant::where('event_id', $event->id)->whereNotNull('date_check_in')->count();
-        $countNotCheckedIn = Participant::where('event_id', $event->id)->whereNull('date_check_in')->count();
+        $countCheckedIn = Participant::where('event_id', $event->id)->whereNotNull('date_check_in')->sum('amount');
+        $countNotCheckedIn = Participant::where('event_id', $event->id)->whereNull('date_check_in')->sum('amount');
 
         try {
 
@@ -61,8 +61,8 @@ class ScanController extends Controller
                     }
                     $participant->date_check_in = Carbon::now();
                     $participant->save();
-                    $countCheckedIn++;
-                    $countNotCheckedIn--;
+                    $countCheckedIn += $participant->amount;
+                    $countNotCheckedIn -= $participant->amount;
                     break;
                 case 2:
                     if (!$participant->date_check_in instanceof Carbon) {
