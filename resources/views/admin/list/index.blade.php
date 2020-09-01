@@ -11,7 +11,7 @@
                                 Besucherliste
                             </h3>
                             @foreach ($participants as $participant)
-                                {{ $participant->name }} ({{ $participant->date_check_in }})<br/>
+                                {{ $participant->name }} {{ $participant->last_name }} ({{ $participant->date_check_in }})<br/>
                             @endforeach
                         </div>
                     </div>
