@@ -24,7 +24,10 @@ class ListController extends Controller
      */
     public function index(Request $request, Event $event)
     {
-        $participants = $event->participant()->whereNotNull('date_check_in')->get();
+        $participants = $event->participant()
+            ->whereNotNull('date_check_in')
+            ->orderBy('date_check_in')
+            ->get();
 
         return view('admin.list.index', [
             'participants' => $participants
