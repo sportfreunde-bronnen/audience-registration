@@ -1,0 +1,8 @@
+{
+    "name": "SFB Besucherregistrierung",
+    "short_name": "SFB Scan",
+    "lang": "de",
+    "start_url": "/",
+    "display": "standalone",
+    "icons": []
+}
