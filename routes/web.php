@@ -21,6 +21,10 @@ Route::get('/v/{secret}', 'VisitController@index')->name('visit.index');
 Route::get('/admin/scan/{event}', 'ScanController@index')->name('scan.index');
 Route::post('/admin/scan/{event}', 'ScanController@code')->name('scan.scan');
 
-Auth::routes();
+Route::get('/admin/list/{event}', 'ListController@index')->name('list.index');
+Route::get('/admin/select', 'AdminController@select')->name('admin.select');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/admin', 'AdminController@index')->name('admin');
+Route::get('/logout', 'Auth\LoginController@logout')->name('auth.logout');
+
+Auth::routes();

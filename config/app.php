@@ -14,6 +14,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+    'club_name' => env('APP_CLUB_NAME', 'Sportfreunde Bronnen'),
 
     /*
     |--------------------------------------------------------------------------
