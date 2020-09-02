@@ -17,6 +17,12 @@
                         </div>
                     @endif
 
+                    @if (\Illuminate\Support\Facades\Session::has('event_success'))
+                        <div class="bg-green-100 border border-green-500 text-green-800 px-4 py-3 mb-6" role="alert">
+                            <p class="text-sm">{{ \Illuminate\Support\Facades\Session::get('event_success') }}</p>
+                        </div>
+                    @endif
+
                     <div class="bg-white shadow overflow-hidden sm:rounded-lg">
                             <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
                                 <h3 class="text-lg leading-6 font-medium text-gray-900">

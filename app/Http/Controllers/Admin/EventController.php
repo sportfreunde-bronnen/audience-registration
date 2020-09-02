@@ -31,7 +31,7 @@ class EventController extends Controller
             'name' => 'required',
             'date_start' => 'required|date',
             'date_start_time' => 'required',
-            'date_end' => 'date',
+            'date_end' => 'nullable|date',
             'date_end_time' => 'required_with:date_end'
         ]);
 
@@ -43,6 +43,8 @@ class EventController extends Controller
         }
 
         $event->save();
+
+        $request->session()->flash('event_success', 'Veranstaltung gespeichert.');
 
         return Redirect::route('event.edit', ['event' => $event]);
     }
