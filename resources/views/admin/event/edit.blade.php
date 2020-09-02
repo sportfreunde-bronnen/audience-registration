@@ -3,7 +3,7 @@
 @section('title', 'Veranstaltung verwalten')
 
 @section('content')
-    <div>
+    <div class="container mx-auto">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -77,7 +77,7 @@
                                 </div>
                                 <div class="flex flex-wrap -mx-3 mb-2 px-3">
                                     <button type="submit" class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
-                                        Event speichern
+                                        Veranstaltung speichern
                                     </button>
                                 </div>
                             </form>
