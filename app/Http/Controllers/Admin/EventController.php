@@ -40,6 +40,8 @@ class EventController extends Controller
 
         if ($validatedData['date_end']) {
             $event->date_end = sprintf('%s %s', $validatedData['date_end'], $validatedData['date_end_time']);
+        } else {
+            $event->date_end = null;
         }
 
         $event->save();
