@@ -24,6 +24,11 @@ Route::post('/admin/scan/{event}', 'ScanController@code')->name('scan.scan');
 Route::get('/admin/list/{event}', 'ListController@index')->name('list.index');
 Route::get('/admin/select', 'AdminController@select')->name('admin.select');
 
+Route::get('/admin/event/create', 'Admin\EventController@create')->name('event.create');
+Route::post('/admin/event/store', 'Admin\EventController@store')->name('event.store.new');
+Route::post('/admin/event/store/{event}', 'Admin\EventController@store')->name('event.store');
+Route::get('/admin/event/edit/{event}', 'Admin\EventController@edit')->name('event.edit');
+
 Route::get('/admin', 'AdminController@index')->name('admin');
 Route::get('/logout', 'Auth\LoginController@logout')->name('auth.logout');
 
