@@ -22,7 +22,7 @@
                         </div>
                         <div>
                             <div class="grid grid-cols-1 gap-4 content-center">
-                                <scanner init-count-checked-in="{{ $countCheckedIn }}" init-count-not-checked-in="{{ $countNotCheckedIn }}"/>
+                                <scanner init-count-checked-in="{{ $countCheckedIn }}" init-count-not-checked-in="{{ $countNotCheckedIn }}" init-count-checked-out="{{ $countCheckedOut }}" init-count-not-checked-out="{{ $countNotCheckedOut }}"/>
                             </div>
                         </div>
                     </div>

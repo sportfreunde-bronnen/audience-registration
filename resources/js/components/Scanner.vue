@@ -1,14 +1,21 @@
 <template>
     <div>
-        <div class="bg-gray-800 text-white px-2 py-1 text-center mb-2 rounded">
+        <div class="bg-gray-700 text-white px-2 py-1 text-center mb-6 rounded cursor-pointer">
+            <span class="block" v-if="mode === 1" @click="toggleMode()">Check-In</span>
+            <span class="block" v-if="mode === 2" @click="toggleMode()">Check-Out</span>
+        </div>
+        <div class="bg-gray-700 text-white px-2 py-1 text-center mb-2 rounded" v-if="mode === 1">
             Eingecheckt: {{ this.amountCheckedIn }} | Offen: {{ this.amountNotCheckedIn }}
+        </div>
+        <div class="bg-gray-700 text-white px-2 py-1 text-center mb-2 rounded" v-if="mode === 2">
+            Ausgecheckt: {{ this.amountCheckedOut }} | Offen: {{ this.amountNotCheckedOut }}
         </div>
         <div class="flex flex-col content-center" :class="containerClass">
             <div>
-                <input ref="code" v-on:keyup.enter="onEnter" type="text" class="w-full text-center my-2 py-3 bg-gray-500 text-white text-xl" v-model="code"/>
+                <input ref="code" v-on:keyup.enter="onEnter" type="text" class="w-full text-center py-3 bg-gray-500 text-white text-xl" v-model="code"/>
             </div>
-            <div v-if="this.sendCode" class="mb-3 text-center font-bold text-lg">{{ this.sendCode }}</div>
-            <div v-if="this.message" class="text-center font-bold text-sm mb-3 px-3">{{ this.message }}</div>
+            <div v-if="this.sendCode" class="my-3 py-6 text-center font-bold text-lg">{{ this.sendCode }}</div>
+            <div v-if="this.message" class="text-center pb-6 font-bold text-sm mb-3 px-3">{{ this.message }}</div>
         </div>
     </div>
 </template>
@@ -18,7 +25,9 @@
         name: "Scanner",
         props: [
             'initCountCheckedIn',
-            'initCountNotCheckedIn'
+            'initCountNotCheckedIn',
+            'initCountCheckedOut',
+            'initCountNotCheckedOut',
         ],
         data() {
             return {
@@ -31,13 +40,13 @@
                 mode: 1, // 1 = Entry; 2 = Exit,
                 message: null,
                 amountCheckedIn: this.initCountCheckedIn,
-                amountNotCheckedIn: this.initCountNotCheckedIn
+                amountNotCheckedIn: this.initCountNotCheckedIn,
+                amountCheckedOut: this.initCountCheckedOut,
+                amountNotCheckedOut: this.initCountNotCheckedOut,
             }
         },
         mounted() {
-            this.$refs.code.focus();
-            this.$refs.code.click();
-
+            this.setFocus();s
             document.addEventListener('touchstart', function enableNoSleep() {
                 document.removeEventListener('touchstart', enableNoSleep, false);
                 window.noSleep.enable();
@@ -57,6 +66,18 @@
             }
         },
         methods: {
+            setFocus() {
+                this.$refs.code.focus();
+                this.$refs.code.click();
+            },
+            toggleMode() {
+                if (this.mode === 1) {
+                    this.mode = 2;
+                } else {
+                    this.mode = 1;
+                }
+                this.setFocus();
+            },
             onEnter() {
                 this.handleCode();
             },
@@ -78,6 +99,8 @@
 
                     this.amountCheckedIn = res.data.countCheckedIn;
                     this.amountNotCheckedIn = res.data.countNotCheckedIn;
+                    this.amountCheckedOut = res.data.countCheckedOut;
+                    this.amountNotCheckedOut = res.data.countNotCheckedOut;
 
                     this.inProgress = false;
 

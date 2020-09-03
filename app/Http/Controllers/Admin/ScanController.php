@@ -35,10 +35,15 @@ class ScanController extends Controller
         $countCheckedIn = Participant::where('event_id', $event->id)->whereNotNull('date_check_in')->sum('amount');
         $countNotCheckedIn = Participant::where('event_id', $event->id)->whereNull('date_check_in')->sum('amount');
 
+        $countCheckedOut = Participant::where('event_id', $event->id)->whereNotNull('date_check_in')->whereNotNull('date_check_out')->sum('amount');
+        $countNotCheckedOut = Participant::where('event_id', $event->id)->whereNotNull('date_check_in')->whereNull('date_check_out')->sum('amount');
+
         return view('admin.scan.entry', [
             'event' => $event,
             'countCheckedIn' => $countCheckedIn,
-            'countNotCheckedIn' => $countNotCheckedIn
+            'countNotCheckedIn' => $countNotCheckedIn,
+            'countCheckedOut' => $countCheckedOut,
+            'countNotCheckedOut' => $countNotCheckedOut
         ]);
     }
 
@@ -54,6 +59,9 @@ class ScanController extends Controller
         $countCheckedIn = Participant::where('event_id', $event->id)->whereNotNull('date_check_in')->sum('amount');
         $countNotCheckedIn = Participant::where('event_id', $event->id)->whereNull('date_check_in')->sum('amount');
 
+        $countCheckedOut = Participant::where('event_id', $event->id)->whereNotNull('date_check_in')->whereNotNull('date_check_out')->sum('amount');
+        $countNotCheckedOut = Participant::where('event_id', $event->id)->whereNotNull('date_check_in')->whereNull('date_check_out')->sum('amount');
+
         try {
 
             switch ($mode) {
@@ -65,6 +73,7 @@ class ScanController extends Controller
                     $participant->save();
                     $countCheckedIn += $participant->amount;
                     $countNotCheckedIn -= $participant->amount;
+                    $countNotCheckedOut += $participant->amount;
                     break;
                 case 2:
                     if (!$participant->date_check_in instanceof Carbon) {
@@ -75,6 +84,8 @@ class ScanController extends Controller
                     }
                     $participant->date_check_out = Carbon::now();
                     $participant->save();
+                    $countCheckedOut += $participant->amount;
+                    $countNotCheckedOut -= $participant->amount;
                     break;
             }
 
@@ -88,7 +99,9 @@ class ScanController extends Controller
                     $participant->amount
                 ),
                 'countCheckedIn' => $countCheckedIn,
-                'countNotCheckedIn' => $countNotCheckedIn
+                'countNotCheckedIn' => $countNotCheckedIn,
+                'countCheckedOut' => $countCheckedOut,
+                'countNotCheckedOut' => $countNotCheckedOut
             ], 200);
 
         } catch(ParticipantHasAlreadyCheckedInException | ParticipantHasAlreadyCheckedOutException | ParticipantHasNoCheckinException $e) {
@@ -97,7 +110,9 @@ class ScanController extends Controller
                 'status' => 1,
                 'message' => $e->getMessage(),
                 'countCheckedIn' => $countCheckedIn,
-                'countNotCheckedIn' => $countNotCheckedIn
+                'countNotCheckedIn' => $countNotCheckedIn,
+                'countCheckedOut' => $countCheckedOut,
+                'countNotCheckedOut' => $countNotCheckedOut
             ], 200);
 
         } catch (\Throwable $e) {
@@ -105,7 +120,9 @@ class ScanController extends Controller
                 'status' => 1,
                 'message' => $e->getMessage(),
                 'countCheckedIn' => $countCheckedIn,
-                'countNotCheckedIn' => $countNotCheckedIn
+                'countNotCheckedIn' => $countNotCheckedIn,
+                'countCheckedOut' => $countCheckedOut,
+                'countNotCheckedOut' => $countNotCheckedOut
             ], 200);
         }
 

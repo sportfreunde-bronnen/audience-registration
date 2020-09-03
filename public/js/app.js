@@ -1923,9 +1923,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Scanner",
-  props: ['initCountCheckedIn', 'initCountNotCheckedIn'],
+  props: ['initCountCheckedIn', 'initCountNotCheckedIn', 'initCountCheckedOut', 'initCountNotCheckedOut'],
   data: function data() {
     return {
       inProgress: false,
@@ -1938,12 +1945,14 @@ __webpack_require__.r(__webpack_exports__);
       // 1 = Entry; 2 = Exit,
       message: null,
       amountCheckedIn: this.initCountCheckedIn,
-      amountNotCheckedIn: this.initCountNotCheckedIn
+      amountNotCheckedIn: this.initCountNotCheckedIn,
+      amountCheckedOut: this.initCountCheckedOut,
+      amountNotCheckedOut: this.initCountNotCheckedOut
     };
   },
   mounted: function mounted() {
-    this.$refs.code.focus();
-    this.$refs.code.click();
+    this.setFocus();
+    s;
     document.addEventListener('touchstart', function enableNoSleep() {
       document.removeEventListener('touchstart', enableNoSleep, false);
       window.noSleep.enable();
@@ -1963,6 +1972,19 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    setFocus: function setFocus() {
+      this.$refs.code.focus();
+      this.$refs.code.click();
+    },
+    toggleMode: function toggleMode() {
+      if (this.mode === 1) {
+        this.mode = 2;
+      } else {
+        this.mode = 1;
+      }
+
+      this.setFocus();
+    },
     onEnter: function onEnter() {
       this.handleCode();
     },
@@ -1981,6 +2003,8 @@ __webpack_require__.r(__webpack_exports__);
         _this.inToggle = true;
         _this.amountCheckedIn = res.data.countCheckedIn;
         _this.amountNotCheckedIn = res.data.countNotCheckedIn;
+        _this.amountCheckedOut = res.data.countCheckedOut;
+        _this.amountNotCheckedOut = res.data.countNotCheckedOut;
         _this.inProgress = false;
 
         if (res.data.status === 0) {
@@ -37605,18 +37629,79 @@ var render = function() {
     _c(
       "div",
       {
-        staticClass: "bg-gray-800 text-white px-2 py-1 text-center mb-2 rounded"
+        staticClass:
+          "bg-gray-700 text-white px-2 py-1 text-center mb-6 rounded cursor-pointer"
       },
       [
-        _vm._v(
-          "\n        Eingecheckt: " +
-            _vm._s(this.amountCheckedIn) +
-            " | Offen: " +
-            _vm._s(this.amountNotCheckedIn) +
-            "\n    "
-        )
+        _vm.mode === 1
+          ? _c(
+              "span",
+              {
+                staticClass: "block",
+                on: {
+                  click: function($event) {
+                    return _vm.toggleMode()
+                  }
+                }
+              },
+              [_vm._v("Check-In")]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.mode === 2
+          ? _c(
+              "span",
+              {
+                staticClass: "block",
+                on: {
+                  click: function($event) {
+                    return _vm.toggleMode()
+                  }
+                }
+              },
+              [_vm._v("Check-Out")]
+            )
+          : _vm._e()
       ]
     ),
+    _vm._v(" "),
+    _vm.mode === 1
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "bg-gray-700 text-white px-2 py-1 text-center mb-2 rounded"
+          },
+          [
+            _vm._v(
+              "\n        Eingecheckt: " +
+                _vm._s(this.amountCheckedIn) +
+                " | Offen: " +
+                _vm._s(this.amountNotCheckedIn) +
+                "\n    "
+            )
+          ]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.mode === 2
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "bg-gray-700 text-white px-2 py-1 text-center mb-2 rounded"
+          },
+          [
+            _vm._v(
+              "\n        Ausgecheckt: " +
+                _vm._s(this.amountCheckedOut) +
+                " | Offen: " +
+                _vm._s(this.amountNotCheckedOut) +
+                "\n    "
+            )
+          ]
+        )
+      : _vm._e(),
     _vm._v(" "),
     _c(
       "div",
@@ -37637,7 +37722,7 @@ var render = function() {
             ],
             ref: "code",
             staticClass:
-              "w-full text-center my-2 py-3 bg-gray-500 text-white text-xl",
+              "w-full text-center py-3 bg-gray-500 text-white text-xl",
             attrs: { type: "text" },
             domProps: { value: _vm.code },
             on: {
@@ -37661,15 +37746,17 @@ var render = function() {
         ]),
         _vm._v(" "),
         this.sendCode
-          ? _c("div", { staticClass: "mb-3 text-center font-bold text-lg" }, [
-              _vm._v(_vm._s(this.sendCode))
-            ])
+          ? _c(
+              "div",
+              { staticClass: "my-3 py-6 text-center font-bold text-lg" },
+              [_vm._v(_vm._s(this.sendCode))]
+            )
           : _vm._e(),
         _vm._v(" "),
         this.message
           ? _c(
               "div",
-              { staticClass: "text-center font-bold text-sm mb-3 px-3" },
+              { staticClass: "text-center pb-6 font-bold text-sm mb-3 px-3" },
               [_vm._v(_vm._s(this.message))]
             )
           : _vm._e()
