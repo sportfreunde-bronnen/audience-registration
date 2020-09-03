@@ -2,7 +2,7 @@
 @section('title', 'Anmeldung')
 
 @section('content')
-    <div class="mx-1 md:mx-20 xl:mx-40 rounded bg-gray-100 text-sm shadow-xs px-5 py-3 text-gray-800">
+    <div class="container mx-auto rounded bg-gray-100 text-sm shadow-xs px-5 py-3 text-gray-800">
 
 
         @if ($errors->any())
@@ -74,7 +74,7 @@
                     </div>
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-2 px-3">
-                    <button type="submit" class="bg-gray-800 w-full lg:w-1/3 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                    <button type="submit" class="bg-gray-800 w-full hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
                         Anmeldung bestätigen
                     </button>
                 </div>
