@@ -51,8 +51,9 @@ class RegistrationController extends Controller
 
         $qrOptions = new QROptions([
             'version' => 2,
-            'outputType' => QRCode::OUTPUT_IMAGE_JPG,
-            'eccLevel' => QRCode::ECC_L
+            'outputType' => QRCode::OUTPUT_IMAGE_PNG,
+            'eccLevel' => QRCode::ECC_L,
+            'imageTransparent' => false
         ]);
 
         try {
@@ -63,15 +64,13 @@ class RegistrationController extends Controller
             $participant->save();
 
             $qrCode = new QRCode($qrOptions);
-            $qrCode->render($participant->secret, __DIR__ . '/../../../public/img/qr/' . $participant->secret . '.jpg');
+            $qrCode->render($participant->secret, __DIR__ . '/../../../public/img/qr/' . $participant->secret . '.png');
 
             event(new ParticipantRegistered($participant));
 
             return redirect()->route('visit.index', ['secret' => $participant->secret]);
 
-        } catch(\Throwable $e) {
-
-        }
+        } catch(\Throwable $e) {}
 
         return view('registration.index', [
             'events' => $events

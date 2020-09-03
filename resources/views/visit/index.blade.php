@@ -21,7 +21,7 @@
             </div>
             <div class="flex flex-col justify-center">
                 <div class="flex justify-center">
-                    <img src="/img/qr/{{ $participant->secret }}.jpg"/>
+                    <img src="/img/qr/{{ $participant->secret }}.png"/>
                 </div>
                 <div class="text-center text-xs text-gray-600 mt-3">
                     <b>Achtung:</b> Nur durch Vorzeigen des QR-Codes können wir Deinen Einlass garantieren. Speichere ihn daher auf Deinem Handy ab, mache einen Screenshot von der aktuellen Seite oder setze Dir ein Lesezeichen
