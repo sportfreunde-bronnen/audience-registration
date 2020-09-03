@@ -32,7 +32,7 @@ class RegistrationController extends Controller
         $events = Event::all()->where('date_start', '>=', Carbon::now()->subMinutes(200)->format('Y-m-d H:i:s'));
 
         $user = null;
-        
+
         if (Cookie::has('participant') && $request->get('complete', 0) == 1) {
             $user = unserialize(Cookie::get('participant'));
         }

@@ -15,13 +15,13 @@
         @endif
 
         @if ($events->count() > 0)
-            <div class="bg-blue-100 border border-blue-500 text-blue-800 px-3 py-2 mb-3 text-xs" role="alert">
-                Wir behalten uns vor, eure Daten beim Einlass auf Richtigkeit zu überprüfen. Seid daher bitte so vernünftig und macht richtige Angaben.
-                Eure Daten dienen ausschließlich der Nachverfolgung möglicher Infektionsketten und werden nach vier Wochen automatisch gelöscht.
+            <div class="bg-blue-100 border border-blue-500 text-blue-800 px-3 py-1 mb-3 text-xs" role="alert">
+                Wir behalten uns vor, Deine Daten beim Einlass auf Richtigkeit zu überprüfen. Sei daher bitte so vernünftig und mach richtige Angaben.
+                Wir nutzen sie ausschließlich zur Nachverfolgung möglicher Infektionsketten und löschen sie nach vier Wochen automatisch.
             </div>
             @if ($hasCookie && !$user)
-                <div class="bg-blue-100 border border-blue-500 text-blue-800 px-3 py-2 mb-3 text-xs" role="alert">
-                    Du warst schon mal hier. <a href="{{ route('registration', ['complete' => 1]) }}"><b>Klicke hier</b></a>, um Deine Daten vom letzten Besuch zu verwenden.
+                <div class="bg-blue-100 border border-blue-500 text-blue-800 px-3 py-1 mb-3 text-xs" role="alert">
+                    Du warst schon mal bei uns. <a href="{{ route('registration', ['complete' => 1]) }}"><b>Klicke hier</b></a>, um Deine Daten vom letzten Besuch zu verwenden.
                 </div>
             @endif
             <form class="w-full" method="POST" action="{{ route('registration.store') }}">
