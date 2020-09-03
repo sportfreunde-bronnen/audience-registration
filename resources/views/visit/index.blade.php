@@ -24,8 +24,8 @@
                     <img src="/img/qr/{{ $participant->secret }}.jpg"/>
                 </div>
                 <div class="text-center text-xs text-gray-600 mt-3">
-                    <b>Achtung:</b> Nur durch Vorzeigen des QR-Codes können wir Deinen Einlass garantieren. Speichere ihn daher auf Deinem Handy ab oder setze Dir ein Lesezeichen
-                    auf die aktuelle Seite. Im Notfall kannst Du diese Seite auch ausdrucken.
+                    <b>Achtung:</b> Nur durch Vorzeigen des QR-Codes können wir Deinen Einlass garantieren. Speichere ihn daher auf Deinem Handy ab, mache einen Screenshot von der aktuellen Seite oder setze Dir ein Lesezeichen
+                    auf die angezeigte Seite. Im Notfall kannst Du diese Seite auch ausdrucken.
                     @if ($participant->email)<span class="block mt-2">Alternativ erhälst Du den QR-Code ebenfalls an Deine angegebene E-Mail Adresse und kannst dort jederzeit darauf zugreifen..</span>@endif
                     <div class="mt-3 bg-red-200 border-2 border-red-400 text-red-600 px-1 py-1">
                         Bitte lies Dir vor Deinem Besuch unser <b><a href="https://sf-bronnen.de/content/2-gesamtverein/1-allgemeines/6-downloads/2020-08-28_sfb-hygienekonzept.pdf">Hygienekonzept (Download)</a></b> durch
