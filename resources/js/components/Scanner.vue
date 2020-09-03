@@ -14,8 +14,6 @@
 </template>
 
 <script>
-    import noSleep from 'nosleep.js';
-
     export default {
         name: "Scanner",
         props: [
@@ -42,7 +40,7 @@
 
             document.addEventListener('touchstart', function enableNoSleep() {
                 document.removeEventListener('touchstart', enableNoSleep, false);
-                noSleep.enable();
+                window.noSleep.enable();
             }, false);
         },
         destroyed() {

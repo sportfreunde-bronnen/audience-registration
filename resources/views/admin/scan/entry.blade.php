@@ -3,12 +3,32 @@
 @section('title', 'Scan ' . $event->name)
 
 @section('content')
-    <div class="mx-1 md:mx-20 xl:mx-64 rounded bg-gray-100 text-sm shadow-xs px-5 py-1 text-gray-800">
-        <div class="my-3 text-center">
-            <h2 class="font-bold">{{ $event->name }}</h2>
-        </div>
-        <div class="grid grid-cols-1 gap-4 content-center">
-            <scanner init-count-checked-in="{{ $countCheckedIn }}" init-count-not-checked-in="{{ $countNotCheckedIn }}"/>
+    <div class="container mx-auto">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                    <div class="bg-white shadow overflow-hidden sm:rounded-lg px-4 py-5">
+                        <div class="border-b border-gray-200">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900 mb-3">
+                                {{ $event->name }}
+                            </h3>
+                        </div>
+                        <div>
+                            <div class="grid grid-cols-1 gap-4 content-center">
+                                <scanner init-count-checked-in="{{ $countCheckedIn }}" init-count-not-checked-in="{{ $countNotCheckedIn }}"/>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
 @endsection

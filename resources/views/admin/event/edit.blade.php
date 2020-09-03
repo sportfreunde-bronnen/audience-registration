@@ -17,9 +17,9 @@
                         </div>
                     @endif
 
-                    @if (\Illuminate\Support\Facades\Session::has('event_success'))
+                    @if (session('event_success'))
                         <div class="bg-green-100 border border-green-500 text-green-800 px-4 py-3 mb-6" role="alert">
-                            <p class="text-sm">{{ \Illuminate\Support\Facades\Session::get('event_success') }}</p>
+                            <p class="text-sm">{{ session('event_success') }}</p>
                         </div>
                     @endif
 
