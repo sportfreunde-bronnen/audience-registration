@@ -1,9 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Event;
+use App\Http\Controllers\Controller;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -33,9 +37,17 @@ class AdminController extends Controller
     {
         $routeName = $request->get('type', 'scan');
 
+        /** @var Builder $events */
+
+        if ($routeName === 'scan.scan') {
+            $events = Event::scannable()->get();
+        } else {
+            $events = Event::query()->orderBy('date_start')->get();
+        }
+
         return view('admin.select', [
             'route' => $routeName,
-            'events' => Event::all()
+            'events' => $events
         ]);
     }
 }

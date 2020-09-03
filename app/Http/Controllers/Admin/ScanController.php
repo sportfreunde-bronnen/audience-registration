@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Event;
 use App\Exceptions\ParticipantHasAlreadyCheckedInException;
 use App\Exceptions\ParticipantHasAlreadyCheckedOutException;
 use App\Exceptions\ParticipantHasNoCheckinException;
+use App\Http\Controllers\Controller;
 use App\Participant;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
