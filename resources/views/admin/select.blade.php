@@ -24,7 +24,15 @@
                             <div class="bg-gray-50 px-4 py-5">
                                 <a href="{{ route('event.create') }}" class="w-full mb-5 block text-center bg-gray-800 hover:bg-gray-900 text-white py-2 px-4 border border-gray-400 rounded shadow">Neue Veranstaltung erstellen</a>
                                 @foreach ($events as $event)
-                                    <a href="{{ route($route, ['event' => $event]) }}" class="w-full block text-left text-sm md:text-center bg-gray-700 hover:bg-gray-800 text-white py-2 px-4 border border-gray-400 rounded shadow">{{ $event->date_start->format('d.m.Y H:i') }} - {{ $event->name }}</a>
+                                    <a href="{{ route($route, ['event' => $event]) }}" class="w-full text-sm block text-center bg-gray-700 hover:bg-gray-800 text-white py-2 px-4 border border-gray-400 rounded shadow">
+                                        <span class="block text-sm">{{ $event->name }}</span>
+                                        <span class="inline text-xs">{{ $event->date_start->format('d.m.Y H:i') }}</span>
+                                        @if ($event->date_end)
+                                            <span class="inline text-xs">
+                                                - {{ $event->date_end->format($event->date_start->diff($event->date_end)->days === 0 ? 'H:i' : 'd.m.Y H:i') }}
+                                            </span>
+                                        @endif
+                                    </a>
                                 @endforeach
                             </div>
                         </div>
