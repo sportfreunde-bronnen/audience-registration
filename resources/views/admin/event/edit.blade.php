@@ -75,10 +75,13 @@
                                         <span class="text-xs text-gray-500">Ein Endzeitpunkt ist nicht zwingend erforderlich.</span>
                                     </div>
                                 </div>
-                                <div class="flex flex-wrap -mx-3 mb-2 px-3">
-                                    <button type="submit" class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                                <div class="md:flex md:justify-between">
+                                    <button type="submit" class="w-full md:w-1/3 text-center py-2 px-4 mb-2 md:mb-0 bg-gray-800 hover:bg-gray-700 text-white rounded">
                                         Veranstaltung speichern
                                     </button>
+                                    @if ($event->id)
+                                        <a class="block md:w-1/3 text-center py-2 px-4 bg-red-600 hover:bg-red-400 text-white rounded" href="{{ route('event.delete', ['event' => $event]) }}" onclick="return confirm('Wirklich löschen? Beim Speichern alle angemeldeten/eingecheckten Besucher ebenfalls gelöscht!');">Veranstaltung löschen</a>
+                                    @endif
                                 </div>
                             </form>
                         </div>

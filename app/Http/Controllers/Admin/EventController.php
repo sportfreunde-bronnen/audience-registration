@@ -51,6 +51,16 @@ class EventController extends Controller
         return Redirect::route('event.edit', ['event' => $event]);
     }
 
+    public function delete(Request $request, Event $event)
+    {
+        if ($event->participant()->count() > 0) {
+            $event->participant()->forceDelete();
+        }
+        $event->forceDelete();
+        $request->session()->flash('event_success', 'Veranstaltung gelöscht.');
+        return Redirect::route('admin.select', ['type' => 'event.edit']);
+    }
+
     /**
      * @param Request $request
      * @param Event   $event
