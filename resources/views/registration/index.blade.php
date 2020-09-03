@@ -15,10 +15,15 @@
         @endif
 
         @if ($events->count() > 0)
-            <div class="bg-blue-100 border border-blue-500 text-blue-800 px-3 py-2 mb-6 text-xs" role="alert">
+            <div class="bg-blue-100 border border-blue-500 text-blue-800 px-3 py-2 mb-3 text-xs" role="alert">
                 Wir behalten uns vor, eure Daten beim Einlass auf Richtigkeit zu überprüfen. Seid daher bitte so vernünftig und macht richtige Angaben.
                 Eure Daten dienen ausschließlich der Nachverfolgung möglicher Infektionsketten und werden nach vier Wochen automatisch gelöscht.
             </div>
+            @if ($hasCookie && !$user)
+                <div class="bg-blue-100 border border-blue-500 text-blue-800 px-3 py-2 mb-3 text-xs" role="alert">
+                    Du warst schon mal hier. <a href="{{ route('registration', ['complete' => 1]) }}"><b>Klicke hier</b></a>, um Deine Daten vom letzten Besuch zu verwenden.
+                </div>
+            @endif
             <form class="w-full" method="POST" action="{{ route('registration.store') }}">
                 @csrf
                 <div class="flex flex-wrap -mx-3 mb-2">
@@ -50,13 +55,13 @@
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="txt-name">
                             Vorname
                         </label>
-                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="txt-name" name="name" type="text" placeholder="Max" required value="{{ old('name') }}">
+                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="txt-name" name="name" type="text" placeholder="Max" required value="{{ old('name', ($user ? $user['name'] : null)) }}">
                     </div>
                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="txt-last-name">
                             Nachname
                         </label>
-                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="txt-last-name" name="last_name" type="text" placeholder="Mustermann" required value="{{ old('last_name') }}">
+                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="txt-last-name" name="last_name" type="text" placeholder="Mustermann" required value="{{ old('last_name', ($user ? $user['last_name'] : null)) }}">
                     </div>
                 </div>
                 <div class="flex flex-wrap -mx-3 md:mb-6">
@@ -64,13 +69,13 @@
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="txt-phone">
                             Telefonnummer
                         </label>
-                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 @error('email') border-red-500 @enderror" id="txt-phone" name="phone" type="tel" placeholder="Telefonnummer">
+                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 @error('email') border-red-500 @enderror" id="txt-phone" name="phone" type="tel" placeholder="Telefonnummer" value="{{ old('phone', ($user ? $user['phone'] : null)) }}">
                     </div>
                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="txt-email">
                             E-Mail Adresse
                         </label>
-                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 @error('email') border-red-500 @enderror" id="txt-email" name="email" type="text" placeholder="E-Mail">
+                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 @error('email') border-red-500 @enderror" id="txt-email" name="email" type="text" placeholder="E-Mail" value="{{{ old('email', ($user ? $user['email'] : null)) }}}">
                     </div>
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-2 px-3">

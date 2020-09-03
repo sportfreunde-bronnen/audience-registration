@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Events\ParticipantRegistered;
 use App\Listeners\SendEmailToRegisteredParticipant;
+use App\Listeners\StoreParticipantDataIntoCookie;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -21,7 +22,8 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         ParticipantRegistered::class => [
-            SendEmailToRegisteredParticipant::class
+            SendEmailToRegisteredParticipant::class,
+            StoreParticipantDataIntoCookie::class
         ]
     ];
 
