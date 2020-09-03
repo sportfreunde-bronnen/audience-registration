@@ -44,7 +44,7 @@
             }, false);
         },
         destroyed() {
-            noSleep.disable();
+            window.noSleep.disable();
         },
         computed: {
             containerClass: function() {

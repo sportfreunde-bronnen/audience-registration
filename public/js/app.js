@@ -1950,7 +1950,7 @@ __webpack_require__.r(__webpack_exports__);
     }, false);
   },
   destroyed: function destroyed() {
-    noSleep.disable();
+    window.noSleep.disable();
   },
   computed: {
     containerClass: function containerClass() {

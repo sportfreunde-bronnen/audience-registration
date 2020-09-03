@@ -44,7 +44,7 @@ class ScanController extends Controller
     public function code(Request $request, Event $event)
     {
         $secret = $request->post('secret');
-        $participant = Participant::where('secret', $secret)->firstOrFail();
+        $participant = Participant::where('secret', $secret)->where('event_id', $event->id)->firstOrFail();
 
         // Get the mode (1 = Entry, 2 = Exit)
         $mode = (int)$request->post('mode', 1);
