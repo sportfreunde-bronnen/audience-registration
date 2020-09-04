@@ -15,7 +15,7 @@
                                     <div class="text-xs bg-blue-100 px-2 py-2 border-blue-300 text-blue-800 mb-3">Die Exportfunktion ist in Arbeit!</div>
                                     <ul class="list-unstyled">
                                     @foreach ($participants as $indexKey => $participant)
-                                        <li class="align-middle mb-1 pb-1 border-b-2 border-gray-200 first:border-t-2 first:pt-1 pl-1">
+                                        <li class="align-middle mb-1 pb-1 p-2 odd:bg-gray-200">
                                             <span class="text-sm block">{{ $indexKey + 1 }} - {{ $participant->name }} {{ $participant->last_name }}</span>
                                             <span class="text-xs block">Check-In: {{ $participant->date_check_in->format('d.m.Y H:i') }}</span>
                                             @if ($participant->email)
