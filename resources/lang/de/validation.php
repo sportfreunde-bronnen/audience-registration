@@ -96,12 +96,12 @@ return [
     'password' => 'The password is incorrect.',
     'present' => 'The :attribute field must be present.',
     'regex' => 'The :attribute format is invalid.',
-    'required' => 'The :attribute field is required.',
+    'required' => 'Bitte das Feld :attribute ausfüllen.',
     'required_if' => 'The :attribute field is required when :other is :value.',
     'required_unless' => 'The :attribute field is required unless :other is in :values.',
     'required_with' => 'The :attribute field is required when :values is present.',
     'required_with_all' => 'The :attribute field is required when :values are present.',
-    'required_without' => 'The :attribute field is required when :values is not present.',
+    'required_without' => 'Das :attribute Feld muss angegeben werden wenn :values leer ist.',
     'required_without_all' => 'The :attribute field is required when none of :values are present.',
     'same' => 'The :attribute and :other must match.',
     'size' => [
@@ -146,6 +146,11 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'phone' => 'Telefon',
+        'email' => 'E-Mail',
+        'date_start' => 'Startdatum',
+        'date_start_time' => 'Startdatum Uhrzeit'
+    ],
 
 ];
