@@ -3,11 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Carbon;
 
 class Event extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'name', 'date_start', 'date_emd'
     ];
@@ -25,7 +28,7 @@ class Event extends Model
     }
 
     /**
-     * Scope a query to only include active users.
+     * Get scannable events only
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
@@ -43,4 +46,23 @@ class Event extends Model
                     ->where('date_end', '>', Carbon::now()->format('Y-m-d H:i:s'));
             });
     }
+
+    /**
+     * Get expired events (after 4 weeks)
+     *
+     * @param $query
+     */
+    public function scopeExpired($query)
+    {
+        return $query
+            ->whereNull('date_end')
+            ->where('date_start', '<=', Carbon::now()->subDays(28)->format('Y-m-d H:i:s'))
+            ->orWhere(function ($query) {
+                /** @var Builder $query */
+               $query
+                   ->whereNotNull('date_end')
+                   ->where('date_end', '<=', Carbon::now()->subDays(28)->format('Y-m-d H:i:s'));
+            });
+    }
+
 }
