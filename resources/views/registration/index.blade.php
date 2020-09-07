@@ -55,8 +55,7 @@
 
         @if ($events->count() > 0)
             <div class="bg-blue-100 border border-blue-500 text-blue-800 px-3 py-1 mb-3 text-xs" role="alert">
-                Wir behalten uns vor, Deine Daten beim Einlass auf Richtigkeit zu überprüfen. Sei daher bitte so vernünftig und mach richtige Angaben.
-                Wir nutzen sie ausschließlich zur Nachverfolgung möglicher Infektionsketten und löschen sie nach vier Wochen automatisch.
+                {{ config('app.text_registration') }}
             </div>
             @if ($hasCookie && !$user)
                 <div class="bg-blue-100 border border-blue-500 text-blue-800 px-3 py-1 mb-3 text-xs" role="alert">

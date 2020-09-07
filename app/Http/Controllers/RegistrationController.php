@@ -33,13 +33,13 @@ class RegistrationController extends Controller
 
         $user = null;
 
-        if (Cookie::has('participant') && $request->get('complete', 0) == 1) {
+        if (config('app.remember_cookie') && Cookie::has('participant') && $request->get('complete', 0) == 1) {
             $user = unserialize(Cookie::get('participant'));
         }
 
         return view('registration.index', [
             'events' => $events,
-            'hasCookie' => Cookie::has('participant'),
+            'hasCookie' => Cookie::has('participant') && config('app.remember_cookie'),
             'user' => $user
         ]);
     }

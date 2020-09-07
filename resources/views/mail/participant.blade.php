@@ -9,8 +9,8 @@ Im Anhang findest Du Deinen QR-Code, den Du zwingend zum Einlass benötigst!<br/
 Eine Zusammenfassung Deiner Anmeldung findest Du <a href="{{ route('visit.index', ['secret' => $participant->secret]) }}">unter diesem Link</a>.<br/><br/>
 
 Viele Grüße,<br/>
-die Sportfreunde Bronnen<br/><br/>
+{{ config('app.mail_footer_text') }}<br/><br/>
 
 ---<br/>
-Web: <a href="https://sf-bronnen.de">https://sf-bronnen.de</a><br/>
-Mail: <a href="mailto:info@sf-bronnen.de">info@sf-bronnen.de</a>
+Web: <a href="{{ config('app.mail_url') }}">{{ config('app.mail_url') }}</a><br/>
+Mail: <a href="mailto:{{ config('app.mail_email') }}">{{ config('app.mail_email') }}</a>

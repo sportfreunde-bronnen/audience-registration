@@ -60,7 +60,7 @@
     </div>
     <footer>
         <div class="w-full text-center text-xs text-gray-500 mb-8">
-            <a href="https://sf-bronnen.de/home/impressum">Impressum</a> | <a href="https://sf-bronnen.de/home/datenschutz">Datenschutz</a> @guest| <a href="{{ route('login') }}">Login</a>@endguest @auth| <a href="{{ route('admin') }}">Administration</a>@endauth
+            <a href="{{ config('app.link_imprint') }}">Impressum</a> | <a href="{{ config('app.link_privacy') }}">Datenschutz</a> @guest| <a href="{{ route('login') }}">Login</a>@endguest @auth| <a href="{{ route('admin') }}">Administration</a>@endauth
         </div>
     </footer>
     <script src="/js/html5-qrcode.min.js"></script>
