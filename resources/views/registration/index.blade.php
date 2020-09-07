@@ -84,7 +84,7 @@
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="txt-amount">
                             Personenzahl
                         </label>
-                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="txt-amount" name="amount" type="number" min="1" value="1">
+                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 @error('amount') border-red-500 @enderror" id="txt-amount" value="{{ old('amount', 1) }}" name="amount" type="number" min="1" value="1">
                         <span class="text-xs text-gray-500">Gilt nur, wenn die Personen im selben Haushalt leben!</span>
                     </div>
                 </div>

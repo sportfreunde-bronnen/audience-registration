@@ -133,6 +133,7 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'amount.lte' => 'Der Wert :attribute darf nicht größer sein als :value.'
     ],
 
     /*
@@ -150,7 +151,8 @@ return [
         'phone' => 'Telefon',
         'email' => 'E-Mail',
         'date_start' => 'Startdatum',
-        'date_start_time' => 'Startdatum Uhrzeit'
+        'date_start_time' => 'Startdatum Uhrzeit',
+        'amount' => 'Personenzahl'
     ],
 
 ];
