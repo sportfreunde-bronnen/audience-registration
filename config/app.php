@@ -22,6 +22,8 @@ return [
     'mail_email' => env('APP_MAIL_EMAIL', ''),
     'mail_footer_text' => env('APP_MAIL_FOOTER_TEXT', ''),
     'remember_cookie' => env('APP_REMEMBER_COOKIE', true),
+    'secret_prefix' => env('APP_SECRET_PREFIX', ''),
+    'hygiene_concept' => env('APP_LINK_HYGIENE_CONCEPT', ''),
 
     /*
     |--------------------------------------------------------------------------

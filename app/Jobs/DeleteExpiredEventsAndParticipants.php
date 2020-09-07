@@ -24,6 +24,12 @@ class DeleteExpiredEventsAndParticipants
             $expiredEvents->each(function (Event $event) {
                 try {
                     Log::info('DELETE PARTICIPANTS (Id: ' . $event->id . ')');
+                    foreach ($event->participant as $participant) {
+                        $imageFile = __DIR__ . '/../../public/img/qr/' . $participant->secret . '.png';
+                        if (file_exists($imageFile)) {
+                            unlink($imageFile);
+                        }
+                    }
                     $event->participant()->forceDelete();
                     Log::info('DELETE EVENT (Id: ' . $event->id . ')');
                     $event->delete();

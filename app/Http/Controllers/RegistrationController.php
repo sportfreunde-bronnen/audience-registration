@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Event;
 use App\Events\ParticipantRegistered;
+use App\Jobs\DeleteExpiredEventsAndParticipants;
 use App\Participant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -71,14 +72,14 @@ class RegistrationController extends Controller
             'version' => 2,
             'outputType' => QRCode::OUTPUT_IMAGE_PNG,
             'eccLevel' => QRCode::ECC_L,
-            'imageTransparent' => false
+            'imageTransparent' => false,
         ]);
 
         try {
 
             $participant = new Participant($validatedData);
             $participant->event_id = $validatedData['event'];
-            $participant->secret = strtoupper(uniqid(config('constants.participant.secretPrefix', 'BES')));
+            $participant->secret = strtoupper(uniqid(config('app.secret_prefix')));
             $participant->save();
 
             $qrCode = new QRCode($qrOptions);
