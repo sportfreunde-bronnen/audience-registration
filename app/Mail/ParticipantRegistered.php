@@ -31,7 +31,7 @@ class ParticipantRegistered extends Mailable
     public function build()
     {
         return $this
-            ->subject('Dein Besuch bei den Sportfreunden Bronnen')
+            ->subject(config('app.mail_subject'))
             ->attach(__DIR__ . '/../../public/img/qr/' . $this->participant->secret . '.png')
             ->view('mail.participant');
     }
