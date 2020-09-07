@@ -70,12 +70,12 @@
                             @foreach ($events as $event)
                                 @if ($event->quota)
                                     @if ($event->getRemainingQuota() === 0)
-                                        <span id="quota-hint-{{ $event->id }}" class="hidden block mt-1 text-sm text-red-500 text-center lg:text-left quota-view">Ausverkauft!</span>
+                                        <span id="quota-hint-{{ $event->id }}" class="pl-0 lg:pl-5 hidden block mt-1 text-sm text-red-500 text-center lg:text-left quota-view">Ausverkauft!</span>
                                     @else
-                                        <span id="quota-hint-{{ $event->id }}" class="hidden block mt-1 text-sm text-gray-500 text-center lg:text-left quota-view">Restplätze: {{ $event->getRemainingQuota() }}</span>
+                                        <span id="quota-hint-{{ $event->id }}" class="pl-0 lg:pl-5 hidden block mt-1 text-sm text-gray-500 text-center lg:text-left quota-view">Restplätze: {{ $event->getRemainingQuota() }}</span>
                                     @endif
                                 @else
-                                    <span id="quota-hint-{{ $event->id }}" class="hidden block mt-1 text-sm text-gray-500 text-center lg:text-left quota-view">Restplätze: unbegrenzt</span>
+                                    <span id="quota-hint-{{ $event->id }}" class="pl-0 lg:pl-5 hidden block mt-1 text-sm text-gray-500 text-center lg:text-left quota-view">Restplätze: unbegrenzt</span>
                                 @endif
                             @endforeach
                         </div>
