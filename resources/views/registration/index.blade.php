@@ -16,13 +16,27 @@
                 }
                 if (parseInt(selectedEvent.dataset.quota) === 0) {
                     document.getElementById('btn-submit').disabled = "disabled";
+                    hideForm();
                 } else {
+                    showForm();
                     document.getElementById('btn-submit').disabled = "";
                 }
                 document.getElementById('quota-hint-' + selectedEvent.value).classList.remove('hidden');
             }
             window.onload = function() {
                 showEventQuota();
+            }
+            function hideForm() {
+                document.getElementById('btn-submit').classList.add('hidden');
+                document.getElementById('container-a').classList.add('hidden');
+                document.getElementById('container-b').classList.add('hidden');
+                document.getElementById('container-c').classList.add('hidden');
+            }
+            function showForm() {
+                document.getElementById('btn-submit').classList.remove('hidden');
+                document.getElementById('container-a').classList.remove('hidden');
+                document.getElementById('container-b').classList.remove('hidden');
+                document.getElementById('container-c').classList.remove('hidden');
             }
         </script>
     @endpush
@@ -80,7 +94,7 @@
                             @endforeach
                         </div>
                     </div>
-                    <div class="w-full px-3 mb-6">
+                    <div id="container-a" class="w-full px-3 mb-6">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="txt-amount">
                             Personenzahl
                         </label>
@@ -88,7 +102,7 @@
                         <span class="text-xs text-gray-500">Gilt nur, wenn die Personen im selben Haushalt leben!</span>
                     </div>
                 </div>
-                <div class="flex flex-wrap -mx-3 md:mb-6">
+                <div id="container-b" class="flex flex-wrap -mx-3 md:mb-6">
                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="txt-name">
                             Vorname
@@ -102,7 +116,7 @@
                         <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="txt-last-name" name="last_name" type="text" placeholder="Mustermann" required value="{{ old('last_name', ($user ? $user['last_name'] : null)) }}">
                     </div>
                 </div>
-                <div class="flex flex-wrap -mx-3 md:mb-6">
+                <div id="container-c" class="flex flex-wrap -mx-3 md:mb-6">
                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="txt-phone">
                             Telefonnummer
