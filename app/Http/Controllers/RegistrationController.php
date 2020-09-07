@@ -49,14 +49,23 @@ class RegistrationController extends Controller
         $events = Event::all()
             ->where('date_start', '>=', Carbon::now()->subMinutes(200)->format('Y-m-d H:i:s'));
 
-        $validatedData = $request->validate([
+        /** @var Event $event */
+        $event = Event::findOrFail($request->post('event'));
+
+        $validationRules = [
             'name' => 'required',
             'last_name' => 'required',
             'event' => 'required',
             'email' => 'required_without:phone',
             'phone' => 'required_without:email',
             'amount' => 'required'
-        ]);
+        ];
+
+        if ($event->getRemainingQuota()) {
+            $validationRules['amount'] .= '|lte:' . $event->getRemainingQuota();
+        }
+
+        $validatedData = $request->validate($validationRules);
 
         $qrOptions = new QROptions([
             'version' => 2,

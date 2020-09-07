@@ -75,6 +75,15 @@
                                         <span class="text-xs text-gray-500">Ein Endzeitpunkt ist nicht zwingend erforderlich.</span>
                                     </div>
                                 </div>
+                                <div class="flex flex-wrap -mx-3 mb-2">
+                                    <div class="w-full px-3 mb-6">
+                                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 @error('name') text-red-500 @enderror" for="txt-amount">
+                                            Kontingent
+                                        </label>
+                                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 @error('quota') border-red-500 @enderror" id="txt-quota" name="quota" type="number" min="1" value="{{ old('quota', $event->quota) }}">
+                                        <span class="text-xs text-gray-500">Wieviele Registrierungen sind für diese Veranstaltung möglich?</span>
+                                    </div>
+                                </div>
                                 <div class="md:flex md:justify-between">
                                     <button type="submit" class="w-full md:w-1/3 text-center py-2 px-4 mb-2 md:mb-0 bg-gray-800 hover:bg-gray-700 text-white rounded">
                                         Veranstaltung speichern

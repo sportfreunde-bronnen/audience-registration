@@ -27,6 +27,14 @@ class Event extends Model
         return $this->hasMany('App\Participant');
     }
 
+    public function getRemainingQuota()
+    {
+        if ($this->quota) {
+            return $this->quota - $this->participant()->sum('amount');
+        }
+        return null;
+    }
+
     /**
      * Get scannable events only
      *
