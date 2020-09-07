@@ -17,7 +17,7 @@
                                     @foreach ($participants as $indexKey => $participant)
                                         <li class="align-middle mb-1 pb-1 p-2 odd:bg-gray-200">
                                             <span class="text-sm block">{{ $indexKey + 1 }} - {{ $participant->name }} {{ $participant->last_name }}</span>
-                                            <span class="text-sm block">Person/en: {{ $participant->amount }}</span>
+                                            <span class="text-xs block">Person/en: {{ $participant->amount }}</span>
                                             <span class="text-xs block">Check-In: {{ $participant->date_check_in->format('d.m.Y H:i') }}</span>
                                             @if ($participant->email)
                                                 <span class="text-xs block">E-Mail: {{ $participant->email }}</span>
