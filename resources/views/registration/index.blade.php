@@ -73,7 +73,7 @@
                         <div class="relative">
                             <select onchange="showEventQuota();" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="select-event" name="event">
                                 @foreach ($events as $event)
-                                    <option data-quota="{{ $event->getRemainingQuota() }}" value="{{ $event->id }}">(@datetime($event->date_start) - {{ $event->name }})</option>
+                                    <option data-quota="{{ $event->getRemainingQuota() }}" value="{{ $event->id }}" @if (old('event', null) == $event->id) selected @endif>(@datetime($event->date_start) - {{ $event->name }})</option>
                                 @endforeach
                             </select>
                             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
