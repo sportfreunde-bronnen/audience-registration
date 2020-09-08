@@ -38,7 +38,7 @@ class ScanController extends Controller
         $countCheckedOut = Participant::where('event_id', $event->id)->whereNotNull('date_check_in')->whereNotNull('date_check_out')->sum('amount');
         $countNotCheckedOut = Participant::where('event_id', $event->id)->whereNotNull('date_check_in')->whereNull('date_check_out')->sum('amount');
 
-        return view('admin.scan.entry', [
+        return view('admin.scan.scan', [
             'event' => $event,
             'countCheckedIn' => $countCheckedIn,
             'countNotCheckedIn' => $countNotCheckedIn,

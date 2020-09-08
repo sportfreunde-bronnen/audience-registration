@@ -40,9 +40,9 @@ class AdminController extends Controller
         /** @var Builder $events */
 
         if ($routeName === 'scan.scan') {
-            $events = Event::scannable()->get();
+            $events = Event::scannable()->orderBy('date_start', 'DESC')->get();
         } else {
-            $events = Event::query()->orderBy('date_start')->get();
+            $events = Event::query()->orderBy('date_start', 'DESC')->get();
         }
 
         return view('admin.select', [

@@ -15,6 +15,16 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
     'club_name' => env('APP_CLUB_NAME', 'Sportfreunde Bronnen'),
+    'link_imprint' => env('APP_LINK_IMPRINT', ''),
+    'link_privacy' => env('APP_LINK_PRIVACY', ''),
+    'text_registration' => env('APP_TEXT_REGISTRATION', ''),
+    'mail_subject' => env('APP_MAIL_SUBJECT', ''),
+    'mail_url' => env('APP_MAIL_URL', ''),
+    'mail_email' => env('APP_MAIL_EMAIL', ''),
+    'mail_footer_text' => env('APP_MAIL_FOOTER_TEXT', ''),
+    'remember_cookie' => env('APP_REMEMBER_COOKIE', true),
+    'secret_prefix' => env('APP_SECRET_PREFIX', ''),
+    'hygiene_concept' => env('APP_LINK_HYGIENE_CONCEPT', ''),
 
     /*
     |--------------------------------------------------------------------------

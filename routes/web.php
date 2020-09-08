@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,5 +34,15 @@ Route::get('/admin/event/delete/{event}', 'Admin\EventController@delete')->name(
 
 Route::get('/admin', 'Admin\AdminController@index')->name('admin');
 Route::get('/logout', 'Auth\LoginController@logout')->name('auth.logout');
+
+Route::get('/cron', function() {
+    try {
+        Artisan::call('schedule:run');
+        Log::info('Run Scheduling');
+        echo 0;
+    } catch(Throwable $e) {
+        echo 1;
+    }
+});
 
 Auth::routes();

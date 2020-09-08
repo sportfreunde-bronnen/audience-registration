@@ -38,24 +38,24 @@
                                 @csrf
                                 <div class="flex flex-wrap -mx-3 mb-2">
                                     <div class="w-full px-3 mb-6">
-                                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="txt-amount">
+                                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 @error('name') text-red-500 @enderror" for="txt-amount">
                                             Name der Veranstaltung
                                         </label>
-                                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="txt-name" name="name" type="text" value="{{ old('name', $event->name) }}">
+                                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 @error('name') border-red-500 @enderror" id="txt-name" name="name" type="text" value="{{ old('name', $event->name) }}">
                                     </div>
                                 </div>
                                 <div class="flex flex-wrap -mx-3 md:mb-6">
-                                    <div class="w-1/2 px-3 mb-6 md:mb-0">
-                                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="txt-name">
+                                    <div class="w-1/2 px-3 mb-6 md:mb-0border-red-800">
+                                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 @error('date_start') text-red-500 @enderror" for="txt-name">
                                             Datum (Start) *
                                         </label>
-                                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="txt-date-start" name="date_start" type="date" value="{{ old('date_start', ($event->date_start ? $event->date_start->format('Y-m-d') : '')) }}">
+                                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white @error('date_start') border-red-500 @enderror" id="txt-date-start" name="date_start" type="date" value="{{ old('date_start', ($event->date_start ? $event->date_start->format('Y-m-d') : '')) }}">
                                     </div>
                                     <div class="w-1/2 px-3 mb-6 md:mb-0">
-                                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="txt-last-name">
+                                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 @error('date_start_time') text-red-500 @enderror" for="txt-last-name">
                                             Uhrzeit (Start) *
                                         </label>
-                                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="txt-date-start-time" name="date_start_time" type="time" value="{{ old('date_start_time', ($event->date_start ? $event->date_start->format('H:i') : '')) }}">
+                                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 @error('date_start_time') border-red-500 @enderror" id="txt-date-start-time" name="date_start_time" type="time" value="{{ old('date_start_time', ($event->date_start ? $event->date_start->format('H:i') : '')) }}">
                                     </div>
                                 </div>
                                 <div class="flex flex-wrap -mx-3 md:mb-6">
@@ -73,6 +73,15 @@
                                     </div>
                                     <div class="w-full px-3 mb-6 md:mb-0">
                                         <span class="text-xs text-gray-500">Ein Endzeitpunkt ist nicht zwingend erforderlich.</span>
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap -mx-3 mb-2">
+                                    <div class="w-full px-3 mb-6">
+                                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 @error('name') text-red-500 @enderror" for="txt-amount">
+                                            Kontingent
+                                        </label>
+                                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 @error('quota') border-red-500 @enderror" id="txt-quota" name="quota" type="number" min="1" value="{{ old('quota', $event->quota) }}">
+                                        <span class="text-xs text-gray-500">Wieviele Registrierungen sind für diese Veranstaltung möglich?</span>
                                     </div>
                                 </div>
                                 <div class="md:flex md:justify-between">

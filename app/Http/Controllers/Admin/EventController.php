@@ -32,10 +32,12 @@ class EventController extends Controller
             'date_start' => 'required|date',
             'date_start_time' => 'required',
             'date_end' => 'nullable|date',
-            'date_end_time' => 'required_with:date_end'
+            'date_end_time' => 'required_with:date_end',
+            'quota' => 'nullable|int'
         ]);
 
         $event->name = $validatedData['name'];
+        $event->quota = $validatedData['quota'];
         $event->date_start = sprintf('%s %s', $validatedData['date_start'], $validatedData['date_start_time']);
 
         if ($validatedData['date_end']) {

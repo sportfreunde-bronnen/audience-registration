@@ -2,6 +2,7 @@
 /public/hot
 /public/storage
 /public/img/qr/*
+/public/manifest.json
 /storage/*.key
 /vendor
 .env
