@@ -20,11 +20,14 @@ Route::post('/', 'RegistrationController@store')->name('registration.store');
 
 Route::get('/v/{secret}', 'VisitController@index')->name('visit.index');
 
+Route::get('/admin/select', 'Admin\AdminController@select')->name('admin.select');
+
 Route::get('/admin/scan/{event}', 'Admin\ScanController@index')->name('scan.index');
 Route::post('/admin/scan/{event}', 'Admin\ScanController@code')->name('scan.scan');
 
 Route::get('/admin/list/{event}', 'Admin\ListController@index')->name('list.index');
-Route::get('/admin/select', 'Admin\AdminController@select')->name('admin.select');
+Route::get('/admin/list/{event}', 'Admin\ListController@index')->name('list.index');
+Route::get('/admin/list/{event}/export', 'Admin\ListController@export')->name('list.export');
 
 Route::get('/admin/event/create', 'Admin\EventController@create')->name('event.create');
 Route::post('/admin/event/store', 'Admin\EventController@store')->name('event.store.new');

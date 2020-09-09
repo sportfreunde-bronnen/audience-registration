@@ -12,13 +12,20 @@
                             </h3>
                             <div class="mt-3">
                                 @if ($participants->count() > 0)
-                                    <div class="text-xs bg-blue-100 px-2 py-2 border-blue-300 text-blue-800 mb-3">Die Exportfunktion ist in Arbeit!</div>
+                                    <div class="flex justify-end align-middle text-xs px-2 py-2 border-blue-300 mb-3">
+                                        <a class="bg-gray-800 text-white rounded px-2 py-2 w-3/6  sm:w-2/6 md:w-2/6 lg:w-1/6" href="{{ route('list.export', ['event' => $event->id]) }}">
+                                            <svg class="w-6 h-6 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path></svg> Export (CSV)
+                                        </a>
+                                    </div>
                                     <ul class="list-unstyled">
                                     @foreach ($participants as $indexKey => $participant)
                                         <li class="align-middle mb-1 pb-1 p-2 odd:bg-gray-200">
                                             <span class="text-sm block">{{ $indexKey + 1 }} - {{ $participant->name }} {{ $participant->last_name }}</span>
                                             <span class="text-xs block">Person/en: {{ $participant->amount }}</span>
                                             <span class="text-xs block">Check-In: {{ $participant->date_check_in->format('d.m.Y H:i') }}</span>
+                                            @if ($participant->date_check_out)
+                                                <span class="text-xs block">Check-Out: {{ $participant->date_check_out->format('d.m.Y H:i') }}</span>
+                                            @endif
                                             @if ($participant->email)
                                                 <span class="text-xs block">E-Mail: {{ $participant->email }}</span>
                                             @endif
