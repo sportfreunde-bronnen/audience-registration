@@ -98,6 +98,7 @@
                             E-Mail Adresse
                         </label>
                         <input wire:model.defer="email" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 @error('email') border-red-500 @enderror" id="txt-email" name="email" type="text" placeholder="E-Mail" value="{{{ old('email', ($user ? $user['email'] : null)) }}}">
+                        <span class="text-xs text-gray-500">Freiwillig, erfolgt zur Übermittlung des QR-Codes</span>
                     </div>
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-2 px-3">
