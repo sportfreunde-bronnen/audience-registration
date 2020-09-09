@@ -50,7 +50,7 @@
                     </div>
                 @endif
                 @if ($this->selectedEvent->getRemainingQuota() || is_null($this->selectedEvent->getRemainingQuota()))
-                    <div id="container-a" class="w-full px-3 mb-6">
+                    <div id="container-a" class="w-full px-3 mb-3">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="txt-amount">
                             Personenzahl
                         </label>
