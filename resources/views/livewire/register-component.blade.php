@@ -20,7 +20,7 @@
                 </div>
             @endif
             <div class="flex flex-wrap -mx-3 mb-2">
-                <div class="w-full md:w-9/12 px-3 mb-6">
+                <div class="w-full px-3 mb-6 @if ($this->selectedEvent->showRemainingQuota())md:w-9/12 @endif">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="select-event">
                         Veranstaltung
                     </label>
@@ -35,20 +35,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="w-full md:w-3/12 px-3 mb-6">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold" for="select-event">
-                        Restplätze
-                    </label>
-                    <div class="block text-sm text-gray-500 mt-2 bg-gray-200 rounded py-3 px-4">
-                        @if ($this->selectedEvent->getRemainingQuota() === 0)
-                            <span class="text-red-400">Ausverkauft!</span>
-                        @elseif (!$this->selectedEvent->getRemainingQuota())
-                            <span class="">unbegrenzt</span>
-                        @else
-                            {{ $this->selectedEvent->getRemainingQuota() }}
-                        @endif
+                @if ($this->selectedEvent->showRemainingQuota())
+                    <div class="w-full md:w-3/12 px-3 mb-6">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold" for="select-event">
+                            Restplätze
+                        </label>
+                        <div class="block text-sm text-gray-500 mt-2 bg-gray-200 rounded py-3 px-4">
+                            @if ($this->selectedEvent->getRemainingQuota() === 0)
+                                <span class="text-red-400">Ausverkauft!</span>
+                            @else
+                                {{ $this->selectedEvent->getRemainingQuota() }}
+                            @endif
+                        </div>
                     </div>
-                </div>
+                @endif
                 @if ($this->selectedEvent->getRemainingQuota() || is_null($this->selectedEvent->getRemainingQuota()))
                     <div id="container-a" class="w-full px-3 mb-6">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="txt-amount">

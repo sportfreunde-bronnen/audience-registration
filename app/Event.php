@@ -35,6 +35,11 @@ class Event extends Model
         return null;
     }
 
+    public function showRemainingQuota()
+    {
+        return !is_null($this->quota);
+    }
+
     /**
      * Get scannable events only
      *
