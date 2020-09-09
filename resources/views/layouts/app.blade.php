@@ -21,6 +21,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @livewireStyles
 </head>
 <body>
     <div id="app">
@@ -66,5 +67,6 @@
     <script src="/js/html5-qrcode.min.js"></script>
     <script src="/js/no-sleep.min.js"></script>
     @stack('scripts')
+    @livewireScripts
 </body>
 </html>

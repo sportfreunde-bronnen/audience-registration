@@ -152,7 +152,9 @@ return [
         'email' => 'E-Mail',
         'date_start' => 'Startdatum',
         'date_start_time' => 'Startdatum Uhrzeit',
-        'amount' => 'Personenzahl'
+        'amount' => 'Personenzahl',
+        'name' => 'Vorname',
+        'last_name' => 'Nachname'
     ],
 
 ];
