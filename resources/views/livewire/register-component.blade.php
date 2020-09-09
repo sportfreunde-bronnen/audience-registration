@@ -1,12 +1,24 @@
 <div>
     <div class="container mx-auto rounded bg-gray-100 text-sm shadow-xs px-5 py-3 text-gray-800">
 
+        <script>
+            function toTop() {
+                window.scroll({
+                    top: 0,
+                    left: 0,
+                    behavior: 'smooth'
+                });
+            }
+        </script>
+
         @if ($errors->any())
             <div class="bg-red-100 border border-red-500 text-red-800 px-4 py-3 mb-6" role="alert">
                 <p class="font-bold">Fehler</p>
+                <ul class="list-disc">
                 @foreach ($errors->all() as $error)
-                    <p class="text-sm">{{ $error }}</p>
+                    <li class="text-sm ml-3">{{ $error }}</li>
                 @endforeach
+                </ul>
             </div>
         @endif
 
@@ -20,7 +32,7 @@
                 </div>
             @endif
             <div class="flex flex-wrap -mx-3 mb-2">
-                <div class="w-full md:w-9/12 px-3 mb-6">
+                <div class="w-full px-3 mb-6 @if ($this->selectedEvent->showRemainingQuota())md:w-9/12 @endif">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="select-event">
                         Veranstaltung
                     </label>
@@ -35,22 +47,22 @@
                         </div>
                     </div>
                 </div>
-                <div class="w-full md:w-3/12 px-3 mb-6">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold" for="select-event">
-                        Restplätze
-                    </label>
-                    <div class="block text-sm text-gray-500 mt-2 bg-gray-200 rounded py-3 px-4">
-                        @if ($this->selectedEvent->getRemainingQuota() === 0)
-                            <span class="text-red-400">Ausverkauft!</span>
-                        @elseif (!$this->selectedEvent->getRemainingQuota())
-                            <span class="">unbegrenzt</span>
-                        @else
-                            {{ $this->selectedEvent->getRemainingQuota() }}
-                        @endif
+                @if ($this->selectedEvent->showRemainingQuota())
+                    <div class="w-full md:w-3/12 px-3 mb-6">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold" for="select-event">
+                            Restplätze
+                        </label>
+                        <div class="block text-sm text-gray-500 mt-2 bg-gray-200 rounded py-3 px-4">
+                            @if ($this->selectedEvent->getRemainingQuota() === 0)
+                                <span class="text-red-400">Ausverkauft!</span>
+                            @else
+                                {{ $this->selectedEvent->getRemainingQuota() }}
+                            @endif
+                        </div>
                     </div>
-                </div>
+                @endif
                 @if ($this->selectedEvent->getRemainingQuota() || is_null($this->selectedEvent->getRemainingQuota()))
-                    <div id="container-a" class="w-full px-3 mb-6">
+                    <div id="container-a" class="w-full px-3 mb-3">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="txt-amount">
                             Personenzahl
                         </label>
@@ -89,7 +101,7 @@
                     </div>
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-2 px-3">
-                    <button wire:click="storeParticipant" class="bg-gray-800 w-full hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                    <button wire:click="storeParticipant" onclick="toTop();" class="bg-gray-800 w-full hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
                         Anmeldung bestätigen
                     </button>
                 </div>
