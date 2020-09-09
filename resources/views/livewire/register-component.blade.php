@@ -14,9 +14,11 @@
         @if ($errors->any())
             <div class="bg-red-100 border border-red-500 text-red-800 px-4 py-3 mb-6" role="alert">
                 <p class="font-bold">Fehler</p>
+                <ul class="list-disc">
                 @foreach ($errors->all() as $error)
-                    <p class="text-sm">{{ $error }}</p>
+                    <li class="text-sm ml-3">{{ $error }}</li>
                 @endforeach
+                </ul>
             </div>
         @endif
 
