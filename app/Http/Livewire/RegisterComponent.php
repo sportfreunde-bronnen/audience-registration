@@ -33,7 +33,7 @@ class RegisterComponent extends Component
 
     public function mount(Request $request)
     {
-        $this->selectedEventId = $this->events->first()->id;
+        $this->selectedEventId = optional($this->events->first())->id;
         if ($this->user) {
             $this->name = $this->user['name'];
             $this->last_name = $this->user['last_name'];
