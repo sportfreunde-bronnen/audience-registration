@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Events\ParticipantRegistered;
+use App\Listeners\CreateParticipantQrCode;
 use App\Listeners\SendEmailToRegisteredParticipant;
 use App\Listeners\StoreParticipantDataIntoCookie;
 use Illuminate\Auth\Events\Registered;
@@ -22,6 +23,7 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         ParticipantRegistered::class => [
+            CreateParticipantQrCode::class,
             SendEmailToRegisteredParticipant::class,
             StoreParticipantDataIntoCookie::class
         ]
