@@ -28,9 +28,9 @@
                         </div>
                         <div>
                             <div class="bg-gray-50 px-4 py-5">
-                                <a href="{{ route('event.create') }}" class="w-full mb-5 block text-center bg-gray-800 hover:bg-gray-900 text-white py-2 px-4 border border-gray-400 rounded shadow">Neue Veranstaltung erstellen</a>
+                                <a href="{{ route('event.create') }}" class="w-full mb-5 block text-center {{ config('app.colors.main') }} hover:{{ config('app.colors.main_darker') }} text-white py-2 px-4 border border-gray-400 rounded shadow">Neue Veranstaltung erstellen</a>
                                 @foreach ($events as $event)
-                                    <a href="{{ route($route, ['event' => $event]) }}" class="w-full text-sm block text-center bg-gray-700 hover:bg-gray-800 text-white py-2 px-4 border border-gray-400 rounded shadow">
+                                    <a href="{{ route($route, ['event' => $event]) }}" class="w-full text-sm block text-center {{ config('app.colors.buttons') }} hover:{{ config('app.colors.main') }} text-white py-2 px-4 border border-gray-400 rounded shadow">
                                         <span class="block text-sm">{{ $event->name }}</span>
                                         <span class="inline text-xs">{{ $event->date_start->format('d.m.Y H:i') }}</span>
                                         @if ($event->date_end)

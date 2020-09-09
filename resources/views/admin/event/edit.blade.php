@@ -85,7 +85,7 @@
                                     </div>
                                 </div>
                                 <div class="md:flex md:justify-between">
-                                    <button type="submit" class="w-full md:w-1/3 text-center py-2 px-4 mb-2 md:mb-0 bg-gray-800 hover:bg-gray-700 text-white rounded">
+                                    <button type="submit" class="w-full md:w-1/3 text-center py-2 px-4 mb-2 md:mb-0 {{ config('app.colors.main') }} hover:{{ config('app.colors.buttons') }} text-white rounded">
                                         Veranstaltung speichern
                                     </button>
                                     @if ($event->id)

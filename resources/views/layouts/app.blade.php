@@ -26,7 +26,7 @@
 <body>
     <div id="app">
         <div>
-            <nav class="bg-gray-800">
+            <nav class="{{ config('app.colors.main') }}">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex items-center justify-between h-16">
                         <div class="flex items-center">
@@ -37,7 +37,7 @@
                             @auth
                             <div class="block">
                                 <div class="ml-10 flex items-baseline">
-                                    <a href="{{ route('admin') }}" class="px-3 py-2 rounded-md text-sm font-medium text-white bg-gray-900 focus:outline-none focus:text-white">Administration</a>
+                                    <a href="{{ route('admin') }}" class="px-3 py-2 rounded-md text-sm font-medium text-white {{ config('app.colors.main_darker') }} focus:outline-none focus:text-white">Administration</a>
                                 </div>
                             </div>
                             @endauth
@@ -61,7 +61,7 @@
     </div>
     <footer>
         <div class="w-full text-center text-xs text-gray-500 mb-8">
-            <a href="{{ config('app.link_imprint') }}">Impressum</a> | <a href="{{ config('app.link_privacy') }}">Datenschutz</a> @guest| <a href="{{ route('login') }}">Login</a>@endguest @auth| <a href="{{ route('admin') }}">Administration</a>@endauth
+            <a href="https://sf-bronnen.de/gesamtverein/allgemeines/besucheranmeldung/software">Software</a> | <a href="{{ config('app.link_imprint') }}">Impressum</a> | <a href="{{ config('app.link_privacy') }}">Datenschutz</a> @guest| <a href="{{ route('login') }}">Login</a>@endguest @auth| <a href="{{ route('admin') }}">Administration</a>@endauth
         </div>
     </footer>
     <script src="/js/html5-qrcode.min.js"></script>
