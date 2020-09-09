@@ -47,13 +47,13 @@ class ListController extends Controller
             "Expires" => "0"
         );
 
-        $participants = $event->participant()->get();
+        $participants = $event->participant()->whereNotNull('date_check_in')->get();
         $columns = ['Name', 'Nachname', 'E-Mail', 'Telefon', 'Anzahl Personen', 'Check-In-Datum', 'Check-Out-Datum'];
 
         $callback = function() use ($participants, $columns, $event)
         {
             $file = fopen('php://output', 'w');
-            fputcsv($file, ['Veranstaltung: ' . $event->name, $event->date_start->format('d.m.Y H:i'), optional($event->date_end)->format('d.m.Y H:i')]);
+            fputcsv($file, ['Veranstaltung: ' . $event->name, optional($event->date_start)->format('d.m.Y H:i'), optional($event->date_end)->format('d.m.Y H:i')]);
             fputcsv($file, $columns);
             foreach($participants as $participant) {
                 fputcsv($file, [
@@ -62,7 +62,7 @@ class ListController extends Controller
                     $participant->email,
                     $participant->phone,
                     $participant->amount,
-                    $participant->date_check_in->format('d.m.Y H:i:s'),
+                    optional($participant->date_check_in)->format('d.m.Y H:i:s'),
                     optional($participant->date_check_out)->format('d.m.Y H:i:s')
                 ]);
             }
