@@ -1,6 +1,16 @@
 <div>
     <div class="container mx-auto rounded bg-gray-100 text-sm shadow-xs px-5 py-3 text-gray-800">
 
+        <script>
+            function toTop() {
+                window.scroll({
+                    top: 0,
+                    left: 0,
+                    behavior: 'smooth'
+                });
+            }
+        </script>
+
         @if ($errors->any())
             <div class="bg-red-100 border border-red-500 text-red-800 px-4 py-3 mb-6" role="alert">
                 <p class="font-bold">Fehler</p>
@@ -89,7 +99,7 @@
                     </div>
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-2 px-3">
-                    <button wire:click="storeParticipant" class="bg-gray-800 w-full hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                    <button wire:click="storeParticipant" onclick="toTop();" class="bg-gray-800 w-full hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
                         Anmeldung bestätigen
                     </button>
                 </div>
