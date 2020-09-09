@@ -20,16 +20,16 @@
                     </div>
                     <div>
                         <div class="bg-gray-50 px-4 py-5">
-                            <a href="{{ route('admin.select', ['type' => 'scan.scan']) }}" class="block text-center w-full bg-gray-700 hover:bg-gray-800 text-white py-2 px-4 border border-gray-400 rounded shadow">
+                            <a href="{{ route('admin.select', ['type' => 'scan.scan']) }}" class="block text-center w-full {{ config('app.colors.buttons') }} hover:{{ config('app.colors.main') }} text-white py-2 px-4 border border-gray-400 rounded shadow">
                                 Codes scannen
                             </a>
-                            <a href="{{ route('admin.select', ['type' => 'list.index']) }}" class="block text-center w-full bg-gray-700 hover:bg-gray-800 text-white my-2 py-2 px-4 border border-gray-400 rounded shadow">
+                            <a href="{{ route('admin.select', ['type' => 'list.index']) }}" class="block text-center w-full {{ config('app.colors.buttons') }} hover:{{ config('app.colors.main') }} text-white my-2 py-2 px-4 border border-gray-400 rounded shadow">
                                 Besucherlisten
                             </a>
-                            <a href="{{ route('admin.select', ['type' => 'event.edit']) }}" class="block text-center w-full bg-gray-700 hover:bg-gray-800 text-white py-2 px-4 border border-gray-400 rounded shadow">
+                            <a href="{{ route('admin.select', ['type' => 'event.edit']) }}" class="block text-center w-full {{ config('app.colors.buttons') }} hover:{{ config('app.colors.main') }} text-white py-2 px-4 border border-gray-400 rounded shadow">
                                 Veranstaltungen
                             </a>
-                            <a href="{{ route('auth.logout') }}" class="block text-center w-full bg-gray-700 hover:bg-gray-800 text-white mt-6 py-2 px-4 border border-gray-400 rounded shadow">
+                            <a href="{{ route('auth.logout') }}" class="block text-center w-full {{ config('app.colors.buttons') }} hover:{{ config('app.colors.main') }} text-white mt-6 py-2 px-4 border border-gray-400 rounded shadow">
                                 Logout
                             </a>
                         </div>

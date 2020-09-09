@@ -26,6 +26,12 @@ return [
     'secret_prefix' => env('APP_SECRET_PREFIX', ''),
     'hygiene_concept' => env('APP_LINK_HYGIENE_CONCEPT', ''),
 
+    'colors' => [
+        'main' => env('APP_COLOR_MAIN', 'bg-gray-800'),
+        'main_darker' => env('APP_COLOR_MAIN_DARKER', 'bg-gray-900'),
+        'buttons' => env('APP_COLOR_BUTTONS', 'bg-gray-700')
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

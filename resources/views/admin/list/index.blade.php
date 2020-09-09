@@ -13,7 +13,7 @@
                             <div class="mt-3">
                                 @if ($participants->count() > 0)
                                     <div class="flex justify-end align-middle text-xs px-2 py-2 border-blue-300 mb-3">
-                                        <a class="bg-gray-800 text-white rounded px-2 py-2 w-3/6  sm:w-2/6 md:w-2/6 lg:w-1/6" href="{{ route('list.export', ['event' => $event->id]) }}">
+                                        <a class="{{ config('app.colors.main') }} text-white rounded px-2 py-2 w-3/6  sm:w-2/6 md:w-2/6 lg:w-1/6" href="{{ route('list.export', ['event' => $event->id]) }}">
                                             <svg class="w-6 h-6 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path></svg> Export (CSV)
                                         </a>
                                     </div>
