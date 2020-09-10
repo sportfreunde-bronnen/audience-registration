@@ -37,7 +37,7 @@
                             @auth
                             <div class="block">
                                 <div class="ml-10 flex items-baseline">
-                                    <a href="{{ route('admin') }}" class="px-3 py-2 rounded-md text-sm font-medium text-white {{ config('app.colors.main_darker') }} focus:outline-none focus:text-white">Administration</a>
+                                    <a href="{{ route('admin') }}" class="px-3 py-2 rounded-md text-sm font-medium text-white {{ config('app.colors.main_darker') }} focus:outline-none focus:text-white">Admin</a>
                                 </div>
                             </div>
                             @endauth
