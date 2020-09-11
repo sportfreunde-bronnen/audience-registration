@@ -26,12 +26,14 @@ class StoreParticipantDataIntoCookie
      */
     public function handle(ParticipantRegistered $event)
     {
-        $cookieData = [
-            'name' => $event->participant->name,
-            'last_name' => $event->participant->last_name,
-            'email' => $event->participant->email,
-            'phone' => $event->participant->phone
-        ];
-        Cookie::queue('participant', serialize($cookieData), (60 * 24 * 60));
+        if (config('app.remember_cookie', false)) {
+            $cookieData = [
+                'name' => $event->participant->name,
+                'last_name' => $event->participant->last_name,
+                'email' => $event->participant->email,
+                'phone' => $event->participant->phone
+            ];
+            Cookie::queue('participant', serialize($cookieData), (60 * 24 * 60));
+        }
     }
 }
