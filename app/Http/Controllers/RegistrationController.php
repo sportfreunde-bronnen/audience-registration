@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Event;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cookie;
 
 class RegistrationController extends Controller
@@ -25,7 +24,7 @@ class RegistrationController extends Controller
      */
     public function index(Request $request)
     {
-        $events = Event::all()->where('date_start', '>=', Carbon::now()->subMinutes(200)->format('Y-m-d H:i:s'));
+        $events = Event::openForRegistration()->get();
 
         if (config('app.remember_cookie') && Cookie::has('participant') && $request->get('complete', 0) == 1) {
             $user = unserialize(Cookie::get('participant'));

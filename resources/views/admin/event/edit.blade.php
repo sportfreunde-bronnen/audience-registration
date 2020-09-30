@@ -76,12 +76,19 @@
                                     </div>
                                 </div>
                                 <div class="flex flex-wrap -mx-3 mb-2">
-                                    <div class="w-full px-3 mb-6">
+                                    <div class="w-full px-3 mb-2">
                                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 @error('name') text-red-500 @enderror" for="txt-amount">
                                             Kontingent
                                         </label>
                                         <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 @error('quota') border-red-500 @enderror" id="txt-quota" name="quota" type="number" min="1" value="{{ old('quota', $event->quota) }}">
                                         <span class="text-xs text-gray-500">Wieviele Registrierungen sind für diese Veranstaltung möglich? (Leer = Unbegrenzt)</span>
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap -mx-3">
+                                    <div class="w-full px-3 mb-6">
+                                        <span class="text-xs text-gray-500">
+                                            Anmerkung: Wird bei einer Veranstaltung kein Endzeitpunkt angegeben, ist eine Registrierung bis <b>10 Stunden</b> nach Beginn der Veranstaltung möglich!
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="md:flex md:justify-between">

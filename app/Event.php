@@ -46,17 +46,33 @@ class Event extends Model
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeScannable($query)
+    public function scopeScanable($query)
     {
         return $query
             ->whereNull('date_end')
-            ->where('date_start', '>=', Carbon::now()->subHours(5)->format('Y-m-d H:i:s'))
+            ->where('date_start', '>', Carbon::now()->subHours(24)->format('Y-m-d H:i:s'))
             ->orWhere(function($query) {
                 /** @var Builder $query */
                 $query
                     ->whereNotNull('date_end')
-                    ->where('date_start', '>=', Carbon::now()->subHours(5)->format('Y-m-d H:i:s'))
                     ->where('date_end', '>', Carbon::now()->subHours(5)->format('Y-m-d H:i:s'));
+            });
+    }
+
+    /**
+     * @param $query
+     *
+     * @return mixed
+     */
+    public function scopeOpenForRegistration($query)
+    {
+        return $query
+            ->whereNull('date_end')
+            ->where('date_start', '>=', Carbon::now()->subHours(10)->format('Y-m-d H:i:s'))
+            ->orWhere(function($query) {
+                /** @var Builder $query */
+                $query->whereNotNull('date_end')
+                    ->where('date_end', '>=', Carbon::now()->format('Y-m-d H:i:s'));
             });
     }
 
