@@ -33,6 +33,8 @@ class EventController extends Controller
             'date_start_time' => 'required',
             'date_end' => 'nullable|date',
             'date_end_time' => 'required_with:date_end',
+            'date_register_start' => 'nullable|date',
+            'date_register_start_time' => 'required_with:date_register_start',
             'quota' => 'nullable|int'
         ]);
 
@@ -44,6 +46,12 @@ class EventController extends Controller
             $event->date_end = sprintf('%s %s', $validatedData['date_end'], $validatedData['date_end_time']);
         } else {
             $event->date_end = null;
+        }
+
+        if ($validatedData['date_register_start']) {
+            $event->date_register_start = sprintf('%s %s', $validatedData['date_register_start'], $validatedData['date_register_start_time']);
+        } else {
+            $event->date_register_start = null;
         }
 
         $event->save();

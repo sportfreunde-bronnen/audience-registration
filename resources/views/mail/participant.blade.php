@@ -8,6 +8,10 @@ Im Anhang findest Du Deinen QR-Code, den Du zwingend zum Einlass benötigst!<br/
 
 Eine Zusammenfassung Deiner Anmeldung findest Du <a href="{{ route('visit.index', ['secret' => $participant->secret]) }}">unter diesem Link</a>.<br/><br/>
 
+@if (config('app.cancel_registration'))
+    Wenn Du Deine Anmeldung stornieren möchtest klicke bitte auf <a href="{{ route('visit.cancel', ['secret' => $participant->secret]) }}">diesen Link.</a><br/><br/>
+@endif
+
 Viele Grüße,<br/>
 {{ config('app.mail_footer_text') }}<br/><br/>
 

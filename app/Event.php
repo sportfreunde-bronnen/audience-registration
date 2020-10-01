@@ -12,12 +12,13 @@ class Event extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'name', 'date_start', 'date_emd'
+        'name', 'date_start', 'date_emd', 'date_register_start'
     ];
 
     protected $casts = [
         'date_start' => 'datetime',
         'date_end' => 'datetime',
+        'date_register_start' => 'datetime',
         'updated_at' => 'datetime',
         'created_at' => 'datetime'
     ];
@@ -67,11 +68,34 @@ class Event extends Model
     public function scopeOpenForRegistration($query)
     {
         return $query
-            ->whereNull('date_end')
-            ->where('date_start', '>=', Carbon::now()->subHours(10)->format('Y-m-d H:i:s'))
             ->orWhere(function($query) {
                 /** @var Builder $query */
-                $query->whereNotNull('date_end')
+                $query
+                    ->whereNull('date_register_start')
+                    ->whereNull('date_end')
+                    ->where('date_start', '>=', Carbon::now()->subHours(10)->format('Y-m-d H:i:s'));
+            })
+            ->orWhere(function($query) {
+                /** @var Builder $query */
+                $query
+                    ->whereNotNull('date_register_start')
+                    ->whereNull('date_end')
+                    ->where('date_register_start', '<=', Carbon::now()->format('Y-m-d H:i:s'))
+                    ->where('date_start', '>=', Carbon::now()->subHours(10)->format('Y-m-d H:i:s'));
+            })
+            ->orWhere(function($query) {
+                /** @var Builder $query */
+                $query
+                    ->whereNotNull('date_end')
+                    ->whereNull('date_register_start')
+                    ->where('date_end', '>=', Carbon::now()->format('Y-m-d H:i:s'));
+            })
+            ->orWhere(function($query) {
+                /** @var Builder $query */
+                $query
+                    ->whereNotNull('date_register_start')
+                    ->whereNotNull('date_end')
+                    ->where('date_register_start', '<=', Carbon::now()->format('Y-m-d H:i:s'))
                     ->where('date_end', '>=', Carbon::now()->format('Y-m-d H:i:s'));
             });
     }

@@ -33,4 +33,29 @@ class VisitController extends Controller
             'participant' => $participant
         ]);
     }
+
+    public function cancel(Request $request)
+    {
+        $participant = Participant::where('secret', $request->route('secret'))->firstOrFail();
+
+        try {
+
+            if (config('app.cancel_registration') === false) {
+                abort(404);
+            }
+
+            if (!is_null($participant->date_check_in)) {
+                $request->session()->flash('cancel_error', 'Du wurdest bereits eingecheckt und kannst Deine Anmeldung daher nicht mehr stornieren!');
+            } else {
+                $participant->delete();
+                $request->session()->flash('cancel_success', 'Vielen Dank. Deine Anmeldung wurde erfolgreich storniert!');
+            }
+        } catch(\Throwable $e) {
+            $request->session()->flash('cancel_error', 'Leider ist ein Fehler aufgetreten. Versuche es bitte erneut!');
+        }
+
+        return view('visit.cancel', [
+            'participant' => $participant
+        ]);
+    }
 }
