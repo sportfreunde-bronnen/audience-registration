@@ -19,6 +19,7 @@ Route::get('/', 'RegistrationController@index')->name('registration');
 Route::post('/', 'RegistrationController@store')->name('registration.store');
 
 Route::get('/v/{secret}', 'VisitController@index')->name('visit.index');
+Route::get('/v/cancel/{secret}', 'VisitController@cancel')->name('visit.cancel');
 
 Route::get('/admin/select', 'Admin\AdminController@select')->name('admin.select');
 
