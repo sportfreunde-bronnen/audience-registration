@@ -45,7 +45,7 @@
                                     </div>
                                 </div>
                                 <div class="flex flex-wrap -mx-3 md:mb-6">
-                                    <div class="w-1/2 px-3 mb-6 md:mb-0border-red-800">
+                                    <div class="w-1/2 px-3 mb-6 md:mb-0 border-red-800">
                                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 @error('date_start') text-red-500 @enderror" for="txt-name">
                                             Datum (Start) *
                                         </label>
@@ -72,10 +72,10 @@
                                         <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="txt-date-end-time" name="date_end_time" type="time" value="{{ old('date_end_time', ($event->date_end ? $event->date_end->format('H:i') : '')) }}">
                                     </div>
                                     <div class="w-full px-3 mb-6 md:mb-0">
-                                        <span class="text-xs text-gray-500">Ein Endzeitpunkt ist nicht zwingend erforderlich.</span>
+                                        <span class="text-xs text-gray-500">Ein Endzeitpunkt ist nicht zwingend erforderlich. Wird kein Endzeitpunkt angegeben, ist eine Registrierung bis <b>10 Stunden</b> nach Beginn der Veranstaltung möglich!</span>
                                     </div>
                                 </div>
-                                <div class="flex flex-wrap -mx-3 mb-2">
+                                <div class="flex flex-wrap -mx-3 md:mb-6">
                                     <div class="w-full px-3 mb-2">
                                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 @error('name') text-red-500 @enderror" for="txt-amount">
                                             Kontingent
@@ -84,11 +84,21 @@
                                         <span class="text-xs text-gray-500">Wieviele Registrierungen sind für diese Veranstaltung möglich? (Leer = Unbegrenzt)</span>
                                     </div>
                                 </div>
-                                <div class="flex flex-wrap -mx-3">
-                                    <div class="w-full px-3 mb-6">
-                                        <span class="text-xs text-gray-500">
-                                            Anmerkung: Wird bei einer Veranstaltung kein Endzeitpunkt angegeben, ist eine Registrierung bis <b>10 Stunden</b> nach Beginn der Veranstaltung möglich!
-                                        </span>
+                                <div class="flex flex-wrap -mx-3 md:mb-6">
+                                    <div class="w-1/2 px-3">
+                                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="txt-name">
+                                            Start Registrierung (Datum)
+                                        </label>
+                                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="txt-date-register-start" name="date_register_start" type="date" value="{{ old('date_register_start', ($event->date_register_start ? $event->date_register_start->format('Y-m-d') : '')) }}">
+                                    </div>
+                                    <div class="w-1/2 px-3">
+                                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 @error('date_register_start_time') text-red-500 @enderror" for="txt-last-name">
+                                            Start Registrierung (Uhrzeit)
+                                        </label>
+                                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 @error('date_register_start_time') border-red-500 @enderror" id="txt-date-register-start-time" name="date_register_start_time" type="time" value="{{ old('date_register_start_time', ($event->date_register_start ? $event->date_register_start->format('H:i') : '')) }}">
+                                    </div>
+                                    <div class="w-full px-3 mb-6 md:mb-0">
+                                        <span class="text-xs text-gray-500">Erst ab dem konfigurierten Zeitpunkt ist eine Registrierung für die Veranstaltung möglich. Angabe optional!</span>
                                     </div>
                                 </div>
                                 <div class="md:flex md:justify-between">
