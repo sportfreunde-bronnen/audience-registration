@@ -23,9 +23,11 @@
         @endif
 
         @if ($events->count() > 0)
+            <!--
             <div class="bg-blue-100 border border-blue-500 text-blue-800 px-3 py-1 mb-3 text-xs" role="alert">
                 {{ config('app.text_registration') }}
             </div>
+            -->
             @if ($hasCookie && !$user)
                 <div class="bg-blue-100 border border-blue-500 text-blue-800 px-3 py-1 mb-3 text-xs" role="alert">
                     Du warst schon mal bei uns. <a href="{{ route('registration', ['complete' => 1]) }}"><b>Klicke hier</b></a>, um Deine Daten vom letzten Besuch zu verwenden.
@@ -67,7 +69,7 @@
                             Personenzahl
                         </label>
                         <input wire:model.defer="amount" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 @error('amount') border-red-500 @enderror" id="txt-amount" value="{{ old('amount', 1) }}" name="amount" type="number" min="1">
-                        <span class="text-xs text-gray-500">Gilt nur, wenn die Personen im selben Haushalt leben!</span>
+                        <span class="text-xs text-gray-500">Gesamtpersonenzahl (Dir inklusive)</span>
                     </div>
                 @endif
             </div>
