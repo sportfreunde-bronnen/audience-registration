@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\ParticipantRegistered;
+use App\Mail\DartsTournamentParticipantRegistered;
 use Illuminate\Support\Facades\Mail;
 
 class SendEmailToRegisteredParticipant
@@ -26,7 +27,13 @@ class SendEmailToRegisteredParticipant
     public function handle(ParticipantRegistered $event)
     {
         if ($event->participant->email) {
-            Mail::to($event->participant)->send(new \App\Mail\ParticipantRegistered($event->participant));
+            if ($event->participant->event->isDartsTournament()) {
+                Mail::to($event->participant)
+                    ->send(new DartsTournamentParticipantRegistered($event->participant));
+            } else {
+                Mail::to($event->participant)
+                    ->send(new \App\Mail\ParticipantRegistered($event->participant));
+            }
         }
     }
 }

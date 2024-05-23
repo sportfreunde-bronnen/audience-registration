@@ -27,6 +27,8 @@ class RegisterComponent extends Component
 
     public $email;
 
+    public $nickname;
+
     public $phone;
 
     public $amount = 1;
@@ -39,6 +41,7 @@ class RegisterComponent extends Component
             $this->last_name = $this->user['last_name'];
             $this->phone = $this->user['phone'];
             $this->email = $this->user['email'];
+            $this->nickname = $this->user['nickname'];
         }
     }
 
@@ -48,6 +51,7 @@ class RegisterComponent extends Component
             'name' => 'required',
             'last_name' => 'required',
             'email' => 'required_without:phone',
+            'nickname' => 'nullable|string',
             'phone' => 'required_without:email',
             'amount' => 'required'
         ];
@@ -56,6 +60,12 @@ class RegisterComponent extends Component
 
         if ($selectedEvent->getRemainingQuota()) {
             $validationRules['amount'] .= '|lte:' . $selectedEvent->getRemainingQuota();
+        }
+
+        if ($selectedEvent->isDartsTournament()) {
+            $validationRules['email'] = 'required|email';
+            $validationRules['phone'] = 'required';
+            $validationRules['nickname'] = 'required|string';
         }
 
         $validatedData = $this->validate($validationRules);

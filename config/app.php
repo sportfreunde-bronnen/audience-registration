@@ -26,6 +26,7 @@ return [
     'cancel_registration' => env('APP_CANCEL_REGISTRATION', false),
     'secret_prefix' => env('APP_SECRET_PREFIX', ''),
     'hygiene_concept' => env('APP_LINK_HYGIENE_CONCEPT', ''),
+    'darts_tournaments' => env('APP_DARTS_TOURNAMENTS', null),
 
     'colors' => [
         'main' => env('APP_COLOR_MAIN', 'bg-gray-800'),

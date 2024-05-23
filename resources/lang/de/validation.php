@@ -39,7 +39,7 @@ return [
     'digits_between' => 'The :attribute must be between :min and :max digits.',
     'dimensions' => 'The :attribute has invalid image dimensions.',
     'distinct' => 'The :attribute field has a duplicate value.',
-    'email' => 'The :attribute must be a valid email address.',
+    'email' => 'Bitte gib eine gültige E-Mail Adresse an.',
     'ends_with' => 'The :attribute must end with one of the following: :values.',
     'exists' => 'The selected :attribute is invalid.',
     'file' => 'The :attribute must be a file.',
@@ -150,6 +150,7 @@ return [
     'attributes' => [
         'phone' => 'Telefon',
         'email' => 'E-Mail',
+        'nickname' => 'Nickname',
         'date_start' => 'Startdatum',
         'date_start_time' => 'Startdatum Uhrzeit',
         'amount' => 'Personenzahl',

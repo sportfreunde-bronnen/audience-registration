@@ -118,4 +118,13 @@ class Event extends Model
             });
     }
 
+    public function isDartsTournament()
+    {
+        $dartsTournaments = config('app.darts_tournaments');
+        if (null === $dartsTournaments) {
+            return false;
+        }
+        return (in_array($this->id, explode(',', $dartsTournaments)));
+    }
+
 }

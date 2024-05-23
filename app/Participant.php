@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Participant extends Model
 {
     protected $fillable = [
-        'name', 'last_name', 'email', 'phone', 'amount'
+        'name', 'last_name', 'email', 'phone', 'amount', 'nickname'
     ];
 
     protected $casts = [

@@ -22,7 +22,9 @@
                                         <li class="align-middle mb-1 pb-1 p-2 odd:bg-gray-200">
                                             <span class="text-sm block">{{ $indexKey + 1 }} - {{ $participant->name }} {{ $participant->last_name }}</span>
                                             <span class="text-xs block">Person/en: {{ $participant->amount }}</span>
-                                            <span class="text-xs block">Check-In: {{ $participant->date_check_in->format('d.m.Y H:i') }}</span>
+                                            @if ($participant->date_check_in)
+                                                <span class="text-xs block">Check-In: {{ $participant->date_check_in->format('d.m.Y H:i') }}</span>
+                                            @endif
                                             @if ($participant->date_check_out)
                                                 <span class="text-xs block">Check-Out: {{ $participant->date_check_out->format('d.m.Y H:i') }}</span>
                                             @endif
@@ -31,6 +33,9 @@
                                             @endif
                                             @if ($participant->phone)
                                                 <span class="text-xs block">Telefon: {{ $participant->phone }}</span>
+                                            @endif
+                                            @if ($participant->nickname)
+                                                <span class="text-xs block">Nickname: {{ $participant->nickname }}</span>
                                             @endif
                                         </li>
                                     @endforeach

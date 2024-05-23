@@ -26,10 +26,17 @@ class ListController extends Controller
      */
     public function index(Request $request, Event $event)
     {
-        $participants = $event->participant()
-            ->whereNotNull('date_check_in')
-            ->orderBy('date_check_in')
-            ->get();
+        if ($event->isDartsTournament()) {
+            $participants = $event->participant()
+                ->orderBy('created_at')
+                ->get();
+        } else {
+            $participants = $event->participant()
+                ->whereNotNull('date_check_in')
+                ->orderBy('date_check_in')
+                ->get();
+        }
+
 
         return view('admin.list.index', [
             'event' => $event,
@@ -47,8 +54,18 @@ class ListController extends Controller
             "Expires" => "0"
         );
 
-        $participants = $event->participant()->whereNotNull('date_check_in')->orderBy('date_check_in', 'ASC')->get();
-        $columns = ['Nachname', 'Name', 'E-Mail', 'Telefon', 'Anzahl Personen', 'Check-In-Datum', 'Check-Out-Datum'];
+        if ($event->isDartsTournament()) {
+            $participants = $event->participant()
+                ->orderBy('created_at')
+                ->get();
+        } else {
+            $participants = $event->participant()
+                ->whereNotNull('date_check_in')
+                ->orderBy('date_check_in')
+                ->get();
+        }
+
+        $columns = ['Nachname', 'Name', 'E-Mail', 'Telefon', 'Anzahl Personen', 'Check-In-Datum', 'Check-Out-Datum', 'Nickname'];
 
         $callback = function() use ($participants, $columns, $event)
         {
@@ -63,7 +80,8 @@ class ListController extends Controller
                     $participant->phone,
                     $participant->amount,
                     optional($participant->date_check_in)->format('d.m.Y H:i:s'),
-                    optional($participant->date_check_out)->format('d.m.Y H:i:s')
+                    optional($participant->date_check_out)->format('d.m.Y H:i:s'),
+                    $participant->nickname
                 ]);
             }
             fclose($file);

@@ -28,7 +28,7 @@
                 {{ config('app.text_registration') }}
             </div>
             -->
-            @if ($hasCookie && !$user)
+            @if ($hasCookie && !$user && 1 === 2)
                 <div class="bg-blue-100 border border-blue-500 text-blue-800 px-3 py-1 mb-3 text-xs" role="alert">
                     Du warst schon mal bei uns. <a href="{{ route('registration', ['complete' => 1]) }}"><b>Klicke hier</b></a>, um Deine Daten vom letzten Besuch zu verwenden.
                 </div>
@@ -63,14 +63,17 @@
                         </div>
                     </div>
                 @endif
-                @if ($this->selectedEvent->getRemainingQuota() || is_null($this->selectedEvent->getRemainingQuota()))
-                    <div id="container-a" class="w-full px-3 mb-3">
-                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="txt-amount">
-                            Personenzahl
-                        </label>
-                        <input wire:model.defer="amount" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 @error('amount') border-red-500 @enderror" id="txt-amount" value="{{ old('amount', 1) }}" name="amount" type="number" min="1">
-                        <span class="text-xs text-gray-500">Gesamtpersonenzahl (Dir inklusive)</span>
-                    </div>
+
+                @if (!$this->selectedEvent->isDartsTournament())
+                    @if ($this->selectedEvent->getRemainingQuota() || is_null($this->selectedEvent->getRemainingQuota()))
+                        <div id="container-a" class="w-full px-3 mb-3">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="txt-amount">
+                                Personenzahl
+                            </label>
+                            <input wire:model.defer="amount" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 @error('amount') border-red-500 @enderror" id="txt-amount" value="{{ old('amount', 1) }}" name="amount" type="number" min="1">
+                            <span class="text-xs text-gray-500">Gesamtpersonenzahl (Dir inklusive)</span>
+                        </div>
+                    @endif
                 @endif
             </div>
             @if ($this->selectedEvent->getRemainingQuota() || is_null($this->selectedEvent->getRemainingQuota()))
@@ -100,8 +103,19 @@
                             E-Mail Adresse
                         </label>
                         <input wire:model.defer="email" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 @error('email') border-red-500 @enderror" id="txt-email" name="email" type="text" placeholder="E-Mail" value="{{{ old('email', ($user ? $user['email'] : null)) }}}">
-                        <span class="text-xs text-gray-500">Freiwillig, zum Versand des QR-Codes</span>
+                        @if (!$this->selectedEvent->isDartsTournament())
+                            <span class="text-xs text-gray-500">Freiwillig, zum Versand des QR-Codes</span>
+                       @endif
                     </div>
+                    @if ((bool)$this->selectedEvent->isDartsTournament() === true)
+                        <div class="w-full px-3 mb-6 md:mb-0 mt-6">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="txt-nickname">
+                                Nickname
+                            </label>
+                            <input wire:model.defer="nickname" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 @error('nickname') border-red-500 @enderror" id="txt-nickname" value="{{ old('amount', 1) }}" name="amount" type="text">
+                            <span class="text-xs text-gray-500">Dein Nickname im Turnier</span>
+                        </div>
+                    @endif
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-2 px-3">
                     <button wire:click="storeParticipant" onclick="toTop();" class="{{ config('app.colors.main') }} w-full hover:{{ config('app.colors.buttons') }} text-white font-bold py-2 px-4 rounded">

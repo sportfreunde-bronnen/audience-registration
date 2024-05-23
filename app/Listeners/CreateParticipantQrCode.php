@@ -26,6 +26,10 @@ class CreateParticipantQrCode
      */
     public function handle(ParticipantRegistered $event)
     {
+        if ($event->participant->event->isDartsTournament()) {
+            return;
+        }
+
         $qrOptions = new QROptions([
             'version' => 2,
             'outputType' => QRCode::OUTPUT_IMAGE_PNG,
