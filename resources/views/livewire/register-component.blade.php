@@ -92,13 +92,13 @@
                     </div>
                 </div>
                 <div id="container-c" class="flex flex-wrap -mx-3 md:mb-6">
-                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                    <div class="w-full md:w-1/2 px-3 mb-6">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="txt-phone">
                             Telefonnummer
                         </label>
                         <input wire:model.defer="phone" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 @error('email') border-red-500 @enderror" id="txt-phone" name="phone" type="tel" placeholder="Telefonnummer" value="{{ old('phone', ($user ? $user['phone'] : null)) }}">
                     </div>
-                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                    <div class="w-full md:w-1/2 px-3 mb-6">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="txt-email">
                             E-Mail Adresse
                         </label>
@@ -108,7 +108,7 @@
                        @endif
                     </div>
                     @if ((bool)$this->selectedEvent->isDartsTournament() === true)
-                        <div class="w-full px-3 mb-6 md:mb-0 mt-6">
+                        <div class="w-full px-3 mb-3">
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="txt-nickname">
                                 Nickname
                             </label>
