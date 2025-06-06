@@ -17,6 +17,7 @@ return [
     'club_name' => env('APP_CLUB_NAME', 'Sportfreunde Bronnen'),
     'link_imprint' => env('APP_LINK_IMPRINT', ''),
     'link_privacy' => env('APP_LINK_PRIVACY', ''),
+    'text_registration_active' => env('APP_TEXT_ACTIVE', false),
     'text_registration' => env('APP_TEXT_REGISTRATION', ''),
     'mail_subject' => env('APP_MAIL_SUBJECT', ''),
     'mail_url' => env('APP_MAIL_URL', ''),

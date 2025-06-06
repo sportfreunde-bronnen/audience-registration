@@ -23,7 +23,7 @@
         @endif
 
         @if ($events->count() > 0)
-            @if (!empty(config('app.text_registration')))
+            @if (config('app.text_registration_active') === true)
                 <div class="bg-blue-100 border border-blue-500 text-blue-800 px-3 py-1 mb-3 text-xs" role="alert">
                     {{ config('app.text_registration') }}
                 </div>
