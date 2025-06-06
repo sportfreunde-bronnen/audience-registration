@@ -23,9 +23,11 @@
         @endif
 
         @if ($events->count() > 0)
-            <div class="bg-blue-100 border border-blue-500 text-blue-800 px-3 py-1 mb-3 text-xs" role="alert">
-                {{ config('app.text_registration') }}
-            </div>
+            @if (!empty(config('app.text_registration')))
+                <div class="bg-blue-100 border border-blue-500 text-blue-800 px-3 py-1 mb-3 text-xs" role="alert">
+                    {{ config('app.text_registration') }}
+                </div>
+            @endif
             @if ($hasCookie && !$user && 1 === 2)
                 <div class="bg-blue-100 border border-blue-500 text-blue-800 px-3 py-1 mb-3 text-xs" role="alert">
                     Du warst schon mal bei uns. <a href="{{ route('registration', ['complete' => 1]) }}"><b>Klicke hier</b></a>, um Deine Daten vom letzten Besuch zu verwenden.
